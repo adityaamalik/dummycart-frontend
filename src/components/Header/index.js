@@ -6,7 +6,7 @@ import { withTranslation } from "react-i18next";
 import * as S from "./styles";
 
 const SvgIcon = lazy(() => import("../../common/SvgIcon"));
-const Button = lazy(() => import("../../common/Button"));
+// const Button = lazy(() => import("../../common/Button"));
 
 const Header = ({ t }) => {
   const [isNavVisible] = useState(false);
@@ -22,30 +22,33 @@ const Header = ({ t }) => {
   };
 
   const MenuItem = () => {
-    const scrollTo = (id) => {
-      const element = document.getElementById(id);
-      element.scrollIntoView({
-        behavior: "smooth",
-      });
-      setVisibility(false);
-    };
     return (
       <Fragment>
-        <S.CustomNavLinkSmall onClick={() => scrollTo("about")}>
-          <S.Span>{t("About")}</S.Span>
+        <S.CustomNavLinkSmall>
+          <S.Span href="/categories">{t("categories")}</S.Span>
         </S.CustomNavLinkSmall>
-        <S.CustomNavLinkSmall onClick={() => scrollTo("mission")}>
-          <S.Span>{t("Mission")}</S.Span>
+        <S.CustomNavLinkSmall>
+          <S.Span href="/about">{t("about us")}</S.Span>
         </S.CustomNavLinkSmall>
-        <S.CustomNavLinkSmall onClick={() => scrollTo("product")}>
-          <S.Span>{t("Product")}</S.Span>
+        <S.CustomNavLinkSmall>
+          <S.Span href="/contact">{t("contact")}</S.Span>
         </S.CustomNavLinkSmall>
-        <S.CustomNavLinkSmall
-          style={{ width: "180px" }}
-          onClick={() => scrollTo("contact")}
-        >
+        <S.CustomNavLinkSmall>
+          <S.Span href="/reviews">{t("reviews")}</S.Span>
+        </S.CustomNavLinkSmall>
+        <S.CustomNavLinkSmall>
+          <S.Span href="/blog">{t("blog")}</S.Span>
+        </S.CustomNavLinkSmall>
+      </Fragment>
+    );
+  };
+
+  const MenuItemRight = () => {
+    return (
+      <Fragment>
+        <S.CustomNavLinkSmall>
           <S.Span>
-            <Button>{t("Contact")}</Button>
+            <SvgIcon src="cart.svg" width="25px" height="25px" />
           </S.Span>
         </S.CustomNavLinkSmall>
       </Fragment>
@@ -57,10 +60,13 @@ const Header = ({ t }) => {
       <S.Container>
         <Row type="flex" justify="space-between" gutter={20}>
           <S.LogoContainer to="/" aria-label="homepage">
-            <SvgIcon src="logo.svg" />
+            <SvgIcon src="logo.svg" width="100" height="50" />
           </S.LogoContainer>
           <S.NotHidden>
             <MenuItem />
+          </S.NotHidden>
+          <S.NotHidden>
+            <MenuItemRight />
           </S.NotHidden>
           <S.Burger onClick={showDrawer}>
             <S.Outline />

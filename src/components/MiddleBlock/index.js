@@ -1,40 +1,79 @@
-import { lazy } from "react";
-import { Row, Col } from "antd";
+import { Row, Col, Card } from "antd";
 import { withTranslation } from "react-i18next";
 import Fade from "react-reveal/Fade";
 
 import * as S from "./styles";
 
-const Button = lazy(() => import("../../common/Button"));
+const { Meta } = Card;
 
-const MiddleBlock = ({ title, content, button, t }) => {
-  const scrollTo = (id) => {
-    const element = document.getElementById(id);
-    element.scrollIntoView({
-      behavior: "smooth",
-    });
-  };
+const MiddleBlock = ({ title, t }) => {
   return (
     <S.MiddleBlock>
       <Row type="flex" justify="center" align="middle">
         <Fade bottom>
-          <S.ContentWrapper>
-            <Col lg={24} md={24} sm={24} xs={24}>
-              <h6>{t(title)}</h6>
-              <S.Content>{t(content)}</S.Content>
-              {button ? (
-                <Button
-                  name="submit"
-                  type="submit"
-                  onClick={() => scrollTo("mission")}
+          <Col>
+            {title && <h6>{t(title)}</h6>}
+            <Row type="flex" justify="center">
+              <S.ImageCol>
+                <Card
+                  onClick={() => {
+                    if (window.location.href.indexOf("/categories") !== -1) {
+                      window.location.pathname = "/category/123";
+                    } else {
+                      window.location.pathname = "/product/123";
+                    }
+                  }}
+                  hoverable
+                  style={{ width: 300 }}
+                  cover={
+                    <img
+                      height="300px"
+                      alt="example"
+                      src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                    />
+                  }
                 >
-                  {t(button)}
-                </Button>
-              ) : (
-                ""
-              )}
-            </Col>
-          </S.ContentWrapper>
+                  <Meta title="Europe Street beat" />
+                </Card>
+              </S.ImageCol>
+              <S.ImageCol>
+                <Card
+                  onClick={() => {
+                    window.location.pathname = "/category/123";
+                  }}
+                  hoverable
+                  style={{ width: 300 }}
+                  cover={
+                    <img
+                      height="300px"
+                      alt="example"
+                      src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                    />
+                  }
+                >
+                  <Meta title="Europe Street beat" />
+                </Card>
+              </S.ImageCol>
+              <S.ImageCol>
+                <Card
+                  onClick={() => {
+                    window.location.pathname = "/category/123";
+                  }}
+                  hoverable
+                  style={{ width: 300 }}
+                  cover={
+                    <img
+                      height="300px"
+                      alt="example"
+                      src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                    />
+                  }
+                >
+                  <Meta title="Europe Street beat" />
+                </Card>
+              </S.ImageCol>
+            </Row>
+          </Col>
         </Fade>
       </Row>
     </S.MiddleBlock>

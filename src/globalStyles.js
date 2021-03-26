@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 const Styles = createGlobalStyle`
 
@@ -76,7 +76,7 @@ const Styles = createGlobalStyle`
 
     .anticon,
     .ant-notification-notice-icon-success {
-        color: rgb(255,130,92);
+        color: #d9a91a;
     }
 `;
 

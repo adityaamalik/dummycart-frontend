@@ -37,7 +37,7 @@ const Header = ({ t }) => {
           <S.Span href="/reviews">{t("reviews")}</S.Span>
         </S.CustomNavLinkSmall>
         <S.CustomNavLinkSmall>
-          <S.Span href="/blog">{t("blog")}</S.Span>
+          <S.Span href="/blogs">{t("blogs")}</S.Span>
         </S.CustomNavLinkSmall>
       </Fragment>
     );
@@ -47,7 +47,7 @@ const Header = ({ t }) => {
     return (
       <Fragment>
         <S.CustomNavLinkSmall>
-          <S.Span>
+          <S.Span onClick={() => (window.location.pathname = "/checkout")}>
             <SvgIcon src="cart.svg" width="25px" height="25px" />
           </S.Span>
         </S.CustomNavLinkSmall>

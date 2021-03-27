@@ -6,21 +6,23 @@ const Product = () => {
     <>
       <S.Container>
         <Row>
-          <Col lg={12} md={24} sm={24} xs={24} style={{ position: "sticky" }}>
-            <Carousel autoplay dotPosition="left">
-              <div>
-                <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-              </div>
-              <div>
-                <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-              </div>
-              <div>
-                <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-              </div>
-              <div>
-                <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-              </div>
-            </Carousel>
+          <Col lg={12} md={24} sm={24} xs={24}>
+            <div style={{ position: "sticky", top: "20px" }}>
+              <Carousel autoplay dotPosition="left">
+                <div>
+                  <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
+                </div>
+                <div>
+                  <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
+                </div>
+                <div>
+                  <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
+                </div>
+                <div>
+                  <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
+                </div>
+              </Carousel>
+            </div>
           </Col>
 
           <Col lg={12} md={24} sm={24} xs={24}>
@@ -90,23 +92,7 @@ const Product = () => {
               <br />
               <br />
               <p>About this product</p>
-              <p>
-                alkjbdfjlkasbdfljkbkjldsbfkjbsdkjfbaksdjbflkjasbdfjkakjhkjhvkjhvjh
-                bsdjkfbsdlkjfbalkjsdbfjkbdslfkjbasdbflkjasbdfkjbasdkjfbaldskjbfalj
-                ksdbfjklasbdfjklbsdkfljbsdljkbfkjlsdbfkljbdsfjkabdsfjbhjgvjghvjghh
-                alkjbdfjlkasbdfljkbkjldsbfkjbsdkjfbaksdjbflkjasbdfjkakjhkjhvkjhvjh
-                bsdjkfbsdlkjfbalkjsdbfjkbdslfkjbasdbflkjasbdfkjbasdkjfbaldskjbfalj
-                ksdbfjklasbdfjklbsdkfljbsdljkbfkjlsdbfkljbdsfjkabdsfjbhjgvjghvjghh
-                alkjbdfjlkasbdfljkbkjldsbfkjbsdkjfbaksdjbflkjasbdfjkakjhkjhvkjhvjh
-                bsdjkfbsdlkjfbalkjsdbfjkbdslfkjbasdbflkjasbdfkjbasdkjfbaldskjbfalj
-                ksdbfjklasbdfjklbsdkfljbsdljkbfkjlsdbfkljbdsfjkabdsfjbhjgvjghvjghh
-                alkjbdfjlkasbdfljkbkjldsbfkjbsdkjfbaksdjbflkjasbdfjkakjhkjhvkjhvjh
-                bsdjkfbsdlkjfbalkjsdbfjkbdslfkjbasdbflkjasbdfkjbasdkjfbaldskjbfalj
-                ksdbfjklasbdfjklbsdkfljbsdljkbfkjlsdbfkljbdsfjkabdsfjbhjgvjghvjghh
-                alkjbdfjlkasbdfljkbkjldsbfkjbsdkjfbaksdjbflkjasbdfjkakjhkjhvkjhvjh
-                bsdjkfbsdlkjfbalkjsdbfjkbdslfkjbasdbflkjasbdfkjbasdkjfbaldskjbfalj
-                ksdbfjklasbdfjklbsdkfljbsdljkbfkjlsdbfkljbdsfjkabdsfjbhjgvjghvjghh
-              </p>
+              <p></p>
             </S.Container>
           </Col>
         </Row>

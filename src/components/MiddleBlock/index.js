@@ -17,10 +17,10 @@ const MiddleBlock = ({ title, t }) => {
               <S.ImageCol>
                 <Card
                   onClick={() => {
-                    if (window.location.href.indexOf("/categories") !== -1) {
-                      window.location.pathname = "/category/123";
-                    } else {
+                    if (window.location.href.indexOf("/category") !== -1) {
                       window.location.pathname = "/product/123";
+                    } else {
+                      window.location.pathname = "/category/123";
                     }
                   }}
                   hoverable

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
   display: inline-block;
@@ -14,8 +14,8 @@ export const TextArea = styled.textarea`
   padding: 1rem 1.25rem;
   resize: none;
   font-size: 0.875rem;
-  height: 185px;
   transition: border-color 0.3s ease-in;
+  border: 1px solid #eee;
 
   &:focus,
   &:hover {

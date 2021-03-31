@@ -1,4 +1,6 @@
-import { Row, Col, Carousel, Image, Radio, Input, Button } from "antd";
+import { Row, Col, Carousel, Image, Radio } from "antd";
+import Button from "../../common/Button";
+import Input from "../../common/Input";
 import * as S from "./styles";
 
 const Product = () => {
@@ -27,31 +29,28 @@ const Product = () => {
 
           <Col lg={12} md={24} sm={24} xs={24}>
             <S.Container>
-              <h1>Name</h1>
+              <h1>Name Of the Product</h1>
               <div style={{ display: "inline-flex" }}>
                 <p
                   style={{
                     marginRight: "10px",
                     textDecoration: "line-through",
-                    fontWeight: "bolder",
                   }}
                 >
-                  ₹ 2000
+                  <strong>₹ 2000</strong>
                 </p>
-                <p
-                  style={{
-                    fontWeight: "bolder",
-                  }}
-                >
-                  ₹ 1000
+                <p>
+                  <strong>₹ 1000</strong>
                 </p>
               </div>
 
-              <p>Colour</p>
+              <p>
+                <strong>Colour</strong>
+              </p>
               <Radio.Group buttonStyle="ouline">
                 <Radio.Button
                   style={{
-                    backgroundColor: "red",
+                    backgroundColor: "#2E3559",
                     marginRight: "5px",
                     color: "black",
                   }}
@@ -59,7 +58,7 @@ const Product = () => {
                 ></Radio.Button>
                 <Radio.Button
                   style={{
-                    backgroundColor: "blue",
+                    backgroundColor: "#d9a91a",
                     marginRight: "5px",
                     color: "black",
                   }}
@@ -67,7 +66,7 @@ const Product = () => {
                 ></Radio.Button>
                 <Radio.Button
                   style={{
-                    backgroundColor: "green",
+                    backgroundColor: "#a69b8f",
                     marginRight: "5px",
                     color: "black",
                   }}
@@ -75,7 +74,7 @@ const Product = () => {
                 ></Radio.Button>
                 <Radio.Button
                   style={{
-                    backgroundColor: "black",
+                    backgroundColor: "#4287f5",
                     marginRight: "5px",
                     color: "white",
                   }}
@@ -83,16 +82,39 @@ const Product = () => {
                 ></Radio.Button>
               </Radio.Group>
 
-              <p>Quantity</p>
-              <Input type="number" defaultValue="1" />
+              <p>
+                <strong>Quantity</strong>
+              </p>
+              <Input type="number" value="1" label="Quantity" />
 
               <br />
               <br />
               <Button>Add to Cart</Button>
               <br />
               <br />
-              <p>About this product</p>
-              <p></p>
+              <p>
+                <strong>About this product</strong>
+              </p>
+              <p>
+                Contrary to popular belief, Lorem Ipsum is not simply random
+                text. It has roots in a piece of classical Latin literature from
+                45 BC, making it over 2000 years old. Richard McClintock, a
+                Latin professor at Hampden-Sydney College in Virginia, looked up
+                one of the more obscure Latin words, consectetur, from a Lorem
+                Ipsum passage, and going through the cites of the word in
+                classical literature, discovered the undoubtable source. Lorem
+                Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus
+                Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,
+                written in 45 BC. This book is a treatise on the theory of
+                ethics, very popular during the Renaissance. The first line of
+                Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line
+                in section 1.10.32. The standard chunk of Lorem Ipsum used since
+                the 1500s is reproduced below for those interested. Sections
+                1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by
+                Cicero are also reproduced in their exact original form,
+                accompanied by English versions from the 1914 translation by H.
+                Rackham.
+              </p>
             </S.Container>
           </Col>
         </Row>

@@ -1,12 +1,13 @@
 import { useState } from "react";
 
-import { Avatar, Row, Col, Button, Input, Space, Upload, Image } from "antd";
-import { UserOutlined, CameraOutlined } from "@ant-design/icons";
+import { Avatar, Row, Col, Space, Upload, Image } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 import StarRatings from "react-star-ratings";
 
 import * as S from "./styles";
-
-const { TextArea } = Input;
+import TextArea from "../../common/TextArea";
+import Input from "../../common/Input";
+import Button from "../../common/Button";
 
 const Reviews = () => {
   const [rating, setRating] = useState(0);
@@ -53,7 +54,7 @@ const Reviews = () => {
                     setComment(e.target.value);
                     setShowName(true);
                   }}
-                  row="2"
+                  rows="2"
                   cols="200"
                   name="comment"
                   style={{ paddingLeft: "10px" }}
@@ -62,7 +63,7 @@ const Reviews = () => {
               </Col>
               <Col>
                 <Upload accept="image/png, image/jpeg">
-                  <Button icon={<CameraOutlined />}></Button>
+                  <S.CameraIcon />
                 </Upload>
               </Col>
             </Space>
@@ -72,7 +73,7 @@ const Reviews = () => {
             <Col>
               <StarRatings
                 rating={rating}
-                starHoverColor="black"
+                starHoverColor="#2e3559"
                 starRatedColor="#d9a91a"
                 changeRating={(r) => {
                   setRating(r);
@@ -94,7 +95,7 @@ const Reviews = () => {
                       <Input
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Name"
+                        label="Name"
                       />
                     </Col>
                     <Col>
@@ -102,11 +103,11 @@ const Reviews = () => {
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="E-mail (Optional)"
+                        label="E-mail (Optional)"
                       />
                     </Col>
                     <Col>
-                      <Button type="primary">Submit</Button>
+                      <Button>Submit</Button>
                     </Col>
                   </Space>
                 </Row>

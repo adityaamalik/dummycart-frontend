@@ -76,7 +76,7 @@ const Styles = createGlobalStyle`
 
     .anticon,
     .ant-notification-notice-icon-success {
-        color: #d9a91a;
+        color: #2e3559;
     }
 `;
 

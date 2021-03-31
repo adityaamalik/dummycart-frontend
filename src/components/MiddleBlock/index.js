@@ -16,6 +16,7 @@ const MiddleBlock = ({ title, t }) => {
             <Row type="flex" justify="center">
               <S.ImageCol>
                 <Card
+                  bordered={false}
                   onClick={() => {
                     if (window.location.href.indexOf("/category") !== -1) {
                       window.location.pathname = "/product/123";
@@ -33,11 +34,18 @@ const MiddleBlock = ({ title, t }) => {
                     />
                   }
                 >
-                  <Meta title="Europe Street beat" />
+                  <Meta
+                    title={
+                      window.location.href.indexOf("/category") !== -1
+                        ? "PRODUCT NAME"
+                        : "CATEGORY NAME"
+                    }
+                  />
                 </Card>
               </S.ImageCol>
               <S.ImageCol>
                 <Card
+                  bordered={false}
                   onClick={() => {
                     window.location.pathname = "/category/123";
                   }}
@@ -51,11 +59,18 @@ const MiddleBlock = ({ title, t }) => {
                     />
                   }
                 >
-                  <Meta title="Europe Street beat" />
+                  <Meta
+                    title={
+                      window.location.href.indexOf("/category") !== -1
+                        ? "PRODUCT NAME"
+                        : "CATEGORY NAME"
+                    }
+                  />
                 </Card>
               </S.ImageCol>
               <S.ImageCol>
                 <Card
+                  bordered={false}
                   onClick={() => {
                     window.location.pathname = "/category/123";
                   }}
@@ -69,7 +84,13 @@ const MiddleBlock = ({ title, t }) => {
                     />
                   }
                 >
-                  <Meta title="Europe Street beat" />
+                  <Meta
+                    title={
+                      window.location.href.indexOf("/category") !== -1
+                        ? "PRODUCT NAME"
+                        : "CATEGORY NAME"
+                    }
+                  />
                 </Card>
               </S.ImageCol>
             </Row>

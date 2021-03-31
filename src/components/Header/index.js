@@ -1,7 +1,7 @@
 import { useState, Fragment, lazy } from "react";
-import { Row, Col, Drawer } from "antd";
-import { CSSTransition } from "react-transition-group";
+import { Row, Col, Drawer, Card, Space } from "antd";
 import { withTranslation } from "react-i18next";
+import Button from "../../common/Button";
 
 import * as S from "./styles";
 
@@ -9,9 +9,8 @@ const SvgIcon = lazy(() => import("../../common/SvgIcon"));
 // const Button = lazy(() => import("../../common/Button"));
 
 const Header = ({ t }) => {
-  const [isNavVisible] = useState(false);
-  const [isSmallScreen] = useState(false);
   const [visible, setVisibility] = useState(false);
+  const [childrenDrawer, setChildrenDrawer] = useState(false);
 
   const showDrawer = () => {
     setVisibility(!visible);
@@ -19,6 +18,15 @@ const Header = ({ t }) => {
 
   const onClose = () => {
     setVisibility(!visible);
+  };
+
+  const showChildrenDrawer = () => {
+    setVisibility(true);
+    setChildrenDrawer(true);
+  };
+
+  const onChildrenDrawerClose = () => {
+    setChildrenDrawer(false);
   };
 
   const MenuItem = () => {
@@ -47,11 +55,62 @@ const Header = ({ t }) => {
     return (
       <Fragment>
         <S.CustomNavLinkSmall>
-          <S.Span onClick={() => (window.location.pathname = "/checkout")}>
-            <SvgIcon src="cart.svg" width="25px" height="25px" />
+          <S.Span onClick={() => showChildrenDrawer()}>
+            <S.CartIcon />
           </S.Span>
         </S.CustomNavLinkSmall>
       </Fragment>
+    );
+  };
+
+  const CartItems = () => {
+    return (
+      <>
+        <Space direction="vertical">
+          <Card
+            bordered={false}
+            hoverable
+            cover={
+              <img
+                alt="example"
+                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+              />
+            }
+          >
+            <strong>Product Name</strong>
+            <br />
+            <span>Price | Quantity</span>
+          </Card>
+          <Card
+            bordered={false}
+            hoverable
+            cover={
+              <img
+                alt="example"
+                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+              />
+            }
+          >
+            <strong>Product Name</strong>
+            <br />
+            <span>Price | Quantity</span>
+          </Card>
+          <Card
+            bordered={false}
+            hoverable
+            cover={
+              <img
+                alt="example"
+                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+              />
+            }
+          >
+            <strong>Product Name</strong>
+            <br />
+            <span>Price | Quantity</span>
+          </Card>
+        </Space>
+      </>
     );
   };
 
@@ -72,26 +131,38 @@ const Header = ({ t }) => {
             <S.Outline />
           </S.Burger>
         </Row>
-        <CSSTransition
-          in={!isSmallScreen || isNavVisible}
-          timeout={350}
-          classNames="NavAnimation"
-          unmountOnExit
-        >
-          <Drawer closable={false} visible={visible} onClose={onClose}>
-            <Col style={{ marginBottom: "2.5rem" }}>
-              <S.Label onClick={onClose}>
-                <Col span={12}>
-                  <S.Menu>Menu</S.Menu>
-                </Col>
-                <Col span={12}>
-                  <S.Outline padding="true" />
-                </Col>
-              </S.Label>
-            </Col>
-            <MenuItem />
+
+        <Drawer closable={false} visible={visible} onClose={onClose}>
+          <Col style={{ marginBottom: "2.5rem" }}>
+            <S.Label onClick={onClose}>
+              <Col span={12}>
+                <S.Menu>Menu</S.Menu>
+              </Col>
+              <Col span={12}>
+                <S.Outline padding="true" />
+              </Col>
+            </S.Label>
+          </Col>
+          <MenuItem />
+          <MenuItemRight />
+
+          <Drawer
+            closable={false}
+            onClose={onChildrenDrawerClose}
+            visible={childrenDrawer}
+          >
+            <Space direction="vertical" style={{ textAlign: "center" }}>
+              <Button
+                onClick={() => {
+                  window.location.pathname = "/checkout";
+                }}
+              >
+                Chekckout
+              </Button>
+              <CartItems />
+            </Space>
           </Drawer>
-        </CSSTransition>
+        </Drawer>
       </S.Container>
     </S.Header>
   );

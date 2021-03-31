@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { MenuOutlined } from "@ant-design/icons";
+import { MenuOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 
 export const Header = styled.header`
   padding: 1rem 0.5rem;
@@ -95,7 +95,16 @@ export const Outline = styled(MenuOutlined)`
 `;
 
 export const Span = styled.a`
+  color: #2e3559;
   &:hover {
-    color: gray;
+    color: #a66d05;
+  }
+`;
+
+export const CartIcon = styled(ShoppingCartOutlined)`
+  font-size: 25px;
+
+  &:hover {
+    color: #a66d05;
   }
 `;

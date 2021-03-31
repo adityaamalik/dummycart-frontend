@@ -157,7 +157,7 @@ const Header = ({ t }) => {
                   window.location.pathname = "/checkout";
                 }}
               >
-                Chekckout
+                Checkout
               </Button>
               <CartItems />
             </Space>

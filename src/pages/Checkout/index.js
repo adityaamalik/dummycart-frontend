@@ -94,17 +94,16 @@ const Checkout = () => {
             <Button width="30">Continue to payment</Button>
           </S.OuterCols>
           <S.OuterCols lg={12} md={12} sm={24} xs={24}>
-            <S.ProductContainer>
+            <S.ProductContainer align="middle">
               <Col span={4}>
                 <Image
-                  src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
                   alt="product"
                 />
               </Col>
               <Col span={2}></Col>
               <Col span={18}>
                 <S.NameSpan>Name of the product</S.NameSpan>
-                <br />
                 <span>Quantity of the product</span>
                 <br />
                 <span>Original Price</span>

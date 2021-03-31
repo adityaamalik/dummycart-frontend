@@ -18,10 +18,11 @@ export const OuterCols = styled(Col)`
 export const ProductContainer = styled(Row)`
   padding: 10px;
   border: 2px solid black;
+  margin-top: 30px;
   margin-bottom: 10px;
   border-radius: 20px;
 `;
 
 export const NameSpan = styled.div`
-  font-size: 20px;
+  font-size: 18px;
 `;

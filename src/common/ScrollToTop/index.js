@@ -1,5 +1,3 @@
-import SvgIcon from "../../common/SvgIcon";
-
 import * as S from "./styles";
 
 const Input = () => {
@@ -14,7 +12,7 @@ const Input = () => {
 
   return (
     <S.Up onClick={scrollUp}>
-      <SvgIcon src="scroll-top.svg" width="26px" height="26px" />
+      <S.UpIcon />
     </S.Up>
   );
 };

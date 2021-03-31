@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import { CaretUpOutlined } from "@ant-design/icons";
+import styled from "styled-components";
 
 export const Up = styled.div`
   box-sizing: border-box;
@@ -19,4 +20,10 @@ export const Up = styled.div`
   @media screen and (max-width: 1024px) {
     display: none;
   }
+`;
+
+export const UpIcon = styled(CaretUpOutlined)`
+  color: #d9a91a;
+  font-size: 30px;
+  font-weight: bolder;
 `;

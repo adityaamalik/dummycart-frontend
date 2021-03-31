@@ -83,14 +83,6 @@ const Checkout = () => {
               value={zip}
               onChange={(val) => setZip(val)}
             />
-            {/* <S.CheckoutInput type="text" placeholder="Name" />
-            <S.CheckoutInput type="email" placeholder="E-Mail" />
-            <S.CheckoutInput type="tel" placeholder="Phone Number" />
-            <S.CheckoutInput type="text" placeholder="Address 1" />
-            <S.CheckoutInput type="text" placeholder="Address 2" />
-            <S.CheckoutInput type="text" placeholder="State" />
-            <S.CheckoutInput type="text" placeholder="City" />
-            <S.CheckoutInput type="number" placeholder="Zip Code" /> */}
             <Button width="30">Continue to payment</Button>
           </S.OuterCols>
           <S.OuterCols lg={12} md={12} sm={24} xs={24}>

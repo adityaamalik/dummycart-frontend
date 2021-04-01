@@ -86,31 +86,26 @@ const Reviews = () => {
             </Col>
           </Row>
           {showName === true ? (
-            <Row>
-              <Col style={{ marginRight: "48px" }}></Col>
-              <Col>
-                <Row>
-                  <Space>
-                    <Col>
-                      <Input
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        label="Name"
-                      />
-                    </Col>
-                    <Col>
-                      <Input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        label="E-mail (Optional)"
-                      />
-                    </Col>
-                    <Col>
-                      <Button>Submit</Button>
-                    </Col>
-                  </Space>
-                </Row>
+            <Row style={{ paddingLeft: "48px" }} align="middle">
+              <Col lg={7}>
+                <Input
+                  value={name}
+                  onChange={(val) => setName(val)}
+                  label="Name"
+                />
+              </Col>
+              <Col lg={1}></Col>
+              <Col lg={7}>
+                <Input
+                  type="email"
+                  value={email}
+                  onChange={(val) => setEmail(val)}
+                  label="E-mail (Optional)"
+                />
+              </Col>
+              <Col lg={1}></Col>
+              <Col lg={7}>
+                <Button height="50px">Submit</Button>
               </Col>
             </Row>
           ) : (

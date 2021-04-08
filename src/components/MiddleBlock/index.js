@@ -14,14 +14,7 @@ const MiddleBlock = ({ title, t }) => {
           <Col>
             {title && <h6>{t(title)}</h6>}
             <Row type="flex" justify="center">
-              <S.ImageCol
-                xl={6}
-                lg={6}
-                md={10}
-                sm={20}
-                xs={20}
-                style={{ marginTop: "10px" }}
-              >
+              <S.ImageCol xl={6} lg={6} md={10} sm={20} xs={20}>
                 <Card
                   bordered={false}
                   onClick={() => {
@@ -49,14 +42,7 @@ const MiddleBlock = ({ title, t }) => {
                   />
                 </Card>
               </S.ImageCol>
-              <S.ImageCol
-                xl={6}
-                lg={6}
-                md={10}
-                sm={20}
-                xs={20}
-                style={{ marginTop: "10px" }}
-              >
+              <S.ImageCol xl={6} lg={6} md={10} sm={20} xs={20}>
                 <Card
                   bordered={false}
                   onClick={() => {
@@ -80,14 +66,7 @@ const MiddleBlock = ({ title, t }) => {
                   />
                 </Card>
               </S.ImageCol>
-              <S.ImageCol
-                xl={6}
-                lg={6}
-                md={10}
-                sm={20}
-                xs={20}
-                style={{ marginTop: "10px" }}
-              >
+              <S.ImageCol xl={6} lg={6} md={10} sm={20} xs={20}>
                 <Card
                   bordered={false}
                   onClick={() => {

@@ -12,4 +12,5 @@ export const MiddleBlock = styled.section`
 export const ImageCol = styled(Col)`
   margin-left: 1rem;
   margin-right: 1rem;
+  margin-top: 10px;
 `;

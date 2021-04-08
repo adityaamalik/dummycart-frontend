@@ -1,6 +1,5 @@
 import { useState, Fragment, lazy } from "react";
 import { Row, Col, Drawer, Card, Space } from "antd";
-import { withTranslation } from "react-i18next";
 import Button from "../../common/Button";
 
 import * as S from "./styles";
@@ -8,7 +7,7 @@ import * as S from "./styles";
 const SvgIcon = lazy(() => import("../../common/SvgIcon"));
 // const Button = lazy(() => import("../../common/Button"));
 
-const Header = ({ t }) => {
+const Header = () => {
   const [visible, setVisibility] = useState(false);
   const [childrenDrawer, setChildrenDrawer] = useState(false);
 
@@ -33,19 +32,19 @@ const Header = ({ t }) => {
     return (
       <Fragment>
         <S.CustomNavLinkSmall>
-          <S.Span href="/categories">{t("categories")}</S.Span>
+          <S.Span href="/categories">categories</S.Span>
         </S.CustomNavLinkSmall>
         <S.CustomNavLinkSmall>
-          <S.Span href="/about">{t("about us")}</S.Span>
+          <S.Span href="/about">about us</S.Span>
         </S.CustomNavLinkSmall>
         <S.CustomNavLinkSmall>
-          <S.Span href="/contact">{t("contact")}</S.Span>
+          <S.Span href="/contact">contact</S.Span>
         </S.CustomNavLinkSmall>
         <S.CustomNavLinkSmall>
-          <S.Span href="/reviews">{t("reviews")}</S.Span>
+          <S.Span href="/reviews">reviews</S.Span>
         </S.CustomNavLinkSmall>
         <S.CustomNavLinkSmall>
-          <S.Span href="/blogs">{t("blogs")}</S.Span>
+          <S.Span href="/blogs">blogs</S.Span>
         </S.CustomNavLinkSmall>
       </Fragment>
     );
@@ -168,4 +167,4 @@ const Header = ({ t }) => {
   );
 };
 
-export default withTranslation()(Header);
+export default Header;

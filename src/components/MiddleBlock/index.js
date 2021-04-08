@@ -14,7 +14,14 @@ const MiddleBlock = ({ title, t }) => {
           <Col>
             {title && <h6>{t(title)}</h6>}
             <Row type="flex" justify="center">
-              <S.ImageCol style={{ marginTop: "10px" }}>
+              <S.ImageCol
+                xl={6}
+                lg={6}
+                md={10}
+                sm={20}
+                xs={20}
+                style={{ marginTop: "10px" }}
+              >
                 <Card
                   bordered={false}
                   onClick={() => {
@@ -25,10 +32,9 @@ const MiddleBlock = ({ title, t }) => {
                     }
                   }}
                   hoverable
-                  style={{ width: 300 }}
                   cover={
                     <img
-                      height="300px"
+                      height="100%"
                       alt="example"
                       src="http://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8cHJvZHVjdHx8MHx8fHwxNjE3NjU4NTM2&ixlib=rb-1.2.1&q=80&w=1080"
                     />
@@ -43,17 +49,23 @@ const MiddleBlock = ({ title, t }) => {
                   />
                 </Card>
               </S.ImageCol>
-              <S.ImageCol style={{ marginTop: "10px" }}>
+              <S.ImageCol
+                xl={6}
+                lg={6}
+                md={10}
+                sm={20}
+                xs={20}
+                style={{ marginTop: "10px" }}
+              >
                 <Card
                   bordered={false}
                   onClick={() => {
                     window.location.pathname = "/category/123";
                   }}
                   hoverable
-                  style={{ width: 300 }}
                   cover={
                     <img
-                      height="300px"
+                      height="100%"
                       alt="example"
                       src="http://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8cHJvZHVjdHx8MHx8fHwxNjE3NjU4NTM2&ixlib=rb-1.2.1&q=80&w=1080"
                     />
@@ -68,17 +80,23 @@ const MiddleBlock = ({ title, t }) => {
                   />
                 </Card>
               </S.ImageCol>
-              <S.ImageCol style={{ marginTop: "10px" }}>
+              <S.ImageCol
+                xl={6}
+                lg={6}
+                md={10}
+                sm={20}
+                xs={20}
+                style={{ marginTop: "10px" }}
+              >
                 <Card
                   bordered={false}
                   onClick={() => {
                     window.location.pathname = "/category/123";
                   }}
                   hoverable
-                  style={{ width: 300 }}
                   cover={
                     <img
-                      height="300px"
+                      height="100%"
                       alt="example"
                       src="http://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8cHJvZHVjdHx8MHx8fHwxNjE3NjU4NTM2&ixlib=rb-1.2.1&q=80&w=1080"
                     />

@@ -1,4 +1,4 @@
-/blogs
-/categories
-/about
-/contact
+/src/Blogs /blogs
+/src/Categories /categories
+/src/About /about
+/src/Contact /contact

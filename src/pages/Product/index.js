@@ -39,7 +39,11 @@ const Product = (props) => {
       message.error("Product already exists in the cart");
     } else if (quantity === 0) {
       message.error("Please select quantity");
-    } else if (colour === "") {
+    } else if (
+      product.colours.length !== 0 &&
+      product.colours[0] !== "" &&
+      colour === 0
+    ) {
       message.error("Please select colour");
     } else {
       const newProduct = {
@@ -113,27 +117,34 @@ const Product = (props) => {
                 </p>
               </div>
 
-              <p>
-                <strong>Colour</strong>
-              </p>
+              {!!product.colours &&
+                product.colours.length !== 0 &&
+                product.colours[0] !== "" && (
+                  <>
+                    <p>
+                      <strong>Colour</strong>
+                    </p>
 
-              <Radio.Group buttonStyle="ouline">
-                {product.colours !== undefined &&
-                  product.colours[0].split(",").map((colour, index) => {
-                    return (
-                      <Radio.Button
-                        key={index}
-                        style={{
-                          backgroundColor: colour,
-                          marginRight: "5px",
-                          color: colour,
-                        }}
-                        onChange={(val) => setColour(val.target.value)}
-                        value={colour}
-                      ></Radio.Button>
-                    );
-                  })}
-              </Radio.Group>
+                    <Radio.Group buttonStyle="ouline">
+                      {product.colours !== undefined &&
+                        product.colours[0].split(",").map((colour, index) => {
+                          if (colour !== "")
+                            return (
+                              <Radio.Button
+                                key={index}
+                                style={{
+                                  backgroundColor: colour,
+                                  marginRight: "5px",
+                                  color: colour,
+                                }}
+                                onChange={(val) => setColour(val.target.value)}
+                                value={colour}
+                              ></Radio.Button>
+                            );
+                        })}
+                    </Radio.Group>
+                  </>
+                )}
 
               <p>
                 <strong>Quantity</strong>

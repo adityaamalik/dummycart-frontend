@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Footer = styled.footer`
@@ -73,7 +74,7 @@ export const Para = styled.div`
   padding: 0 10%;
 `;
 
-export const Large = styled.a`
+export const Large = styled(Link)`
   font-size: 16px;
   color: rgba(2, 7, 62, 0.8);
   text-align: left;

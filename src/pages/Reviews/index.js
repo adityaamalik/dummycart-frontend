@@ -53,6 +53,10 @@ const Reviews = () => {
         .then((response) => {
           console.log(response.data);
           setReviews([response.data, ...reviews]);
+          setName("");
+          setComment("");
+          setRating(0);
+          setEmail("");
           message.success("Review posted successfully !");
         })
         .catch((error) => {

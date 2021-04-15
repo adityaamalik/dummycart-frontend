@@ -1,7 +1,23 @@
 import { Image, Row, Col } from "antd";
+import { useEffect, useState } from "react";
 import * as S from "./styles";
+import axios from "axios";
 
-const Blog = () => {
+const Blog = (props) => {
+  const { id } = props.location.state;
+
+  const [blog, setBlog] = useState({});
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/blogs/${id}`)
+      .then((response) => {
+        console.log(response.data);
+        setBlog(response.data);
+      })
+      .catch((error) => console.log(error));
+  }, [id]);
+
   return (
     <>
       <h1
@@ -10,18 +26,29 @@ const Blog = () => {
           marginTop: "40px",
         }}
       >
-        Blog Heading
+        {blog.title}
       </h1>
       <S.Container>
         <Row justify="center">
           <Col lg={12} md={24} sm={24} xs={24}>
-            <Image
-              src="http://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8cHJvZHVjdHx8MHx8fHwxNjE3NjU4NTM2&ixlib=rb-1.2.1&q=80&w=1080"
-              style={{ height: "auto", width: "90%" }}
-            />
+            {!!blog.image && (
+              <Image
+                src={`data:image/${
+                  blog.image.contentType
+                };base64,${new Buffer.from(blog.image.data).toString(
+                  "base64"
+                )}`}
+                style={{
+                  objectFit: "scale-down",
+                  width: "100%",
+                  height: "auto",
+                  maxHeight: "400px",
+                }}
+              />
+            )}
           </Col>
           <Col lg={12} md={24} sm={24} xs={24}>
-            lkdflalnsdkjnflakjsdnflakjdnsfjkn
+            {blog.content}
           </Col>
         </Row>
       </S.Container>

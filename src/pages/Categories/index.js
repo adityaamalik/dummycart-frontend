@@ -1,8 +1,20 @@
-import { lazy } from "react";
-
+import { lazy, useEffect, useState } from "react";
+import axios from "axios";
 const MiddleBlock = lazy(() => import("../../components/MiddleBlock"));
 
 const Categories = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/categories")
+      .then((response) => {
+        console.log(response.data);
+        setCategories(response.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
     <>
       <h1
@@ -21,7 +33,7 @@ const Categories = () => {
       >
         We provide variety
       </p>
-      <MiddleBlock />
+      <MiddleBlock data={categories} />
     </>
   );
 };

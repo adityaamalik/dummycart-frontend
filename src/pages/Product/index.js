@@ -1,9 +1,64 @@
-import { Row, Col, Carousel, Image, Radio } from "antd";
+import { Row, Col, Carousel, Image, Radio, message } from "antd";
 import Button from "../../common/Button";
 import Input from "../../common/Input";
 import * as S from "./styles";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
-const Product = () => {
+const Product = (props) => {
+  const { id } = props.location.state;
+  const [product, setProduct] = useState({});
+
+  const [colour, setColour] = useState("");
+  const [quantity, setQuantity] = useState(0);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/products/${id}`)
+      .then((response) => {
+        setProduct(response.data);
+      })
+      .catch((error) => console.log(error));
+  }, [id]);
+
+  const addToCart = () => {
+    const oldproduct = localStorage.getItem("products")
+      ? localStorage.getItem("products")
+      : "[]";
+    const arrayproduct = JSON.parse(oldproduct);
+
+    console.log(arrayproduct);
+
+    let flag = false;
+    arrayproduct.forEach((element) => {
+      if (element.id === product._id) {
+        flag = true;
+      }
+    });
+    if (flag) {
+      message.error("Product already exists in the cart");
+    } else if (quantity === 0) {
+      message.error("Please select quantity");
+    } else if (colour === "") {
+      message.error("Please select colour");
+    } else {
+      const newProduct = {
+        name: product.name,
+        id: product._id,
+        image: product.image,
+        discountedPrice: product.discountedPrice,
+        originalPrice: product.originalPrice,
+        quantity: quantity,
+        colour: colour,
+      };
+      arrayproduct.push(newProduct);
+
+      localStorage.setItem("products", JSON.stringify(arrayproduct));
+
+      message.success("Product added to cart !");
+    }
+  };
+
   return (
     <>
       <S.Container>
@@ -12,24 +67,38 @@ const Product = () => {
             <div style={{ position: "sticky", top: "20px" }}>
               <Carousel autoplay dotPosition="left">
                 <div>
-                  <Image src="http://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8cHJvZHVjdHx8MHx8fHwxNjE3NjU4NTM2&ixlib=rb-1.2.1&q=80&w=1080" />
+                  {!!product.image && (
+                    <Image
+                      src={`data:image/${
+                        product.image.contentType
+                      };base64,${new Buffer.from(product.image.data).toString(
+                        "base64"
+                      )}`}
+                      alt={product.name}
+                    />
+                  )}
                 </div>
-                <div>
-                  <Image src="http://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8cHJvZHVjdHx8MHx8fHwxNjE3NjU4NTM2&ixlib=rb-1.2.1&q=80&w=1080" />
-                </div>
-                <div>
-                  <Image src="http://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8cHJvZHVjdHx8MHx8fHwxNjE3NjU4NTM2&ixlib=rb-1.2.1&q=80&w=1080" />
-                </div>
-                <div>
-                  <Image src="http://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8cHJvZHVjdHx8MHx8fHwxNjE3NjU4NTM2&ixlib=rb-1.2.1&q=80&w=1080" />
-                </div>
+                {product.images &&
+                  product.images.map((image) => (
+                    <div key={image}>
+                      {!!image && (
+                        <Image
+                          src={`data:image/${
+                            image.contentType
+                          };base64,${new Buffer.from(image.data).toString(
+                            "base64"
+                          )}`}
+                        />
+                      )}
+                    </div>
+                  ))}
               </Carousel>
             </div>
           </Col>
 
           <Col lg={12} md={24} sm={24} xs={24}>
             <S.Container>
-              <h1>Name Of the Product</h1>
+              <h1>{product.name}</h1>
               <div style={{ display: "inline-flex" }}>
                 <p
                   style={{
@@ -37,84 +106,54 @@ const Product = () => {
                     textDecoration: "line-through",
                   }}
                 >
-                  <strong>₹ 2000</strong>
+                  <strong>₹ {product.originalPrice}</strong>
                 </p>
                 <p>
-                  <strong>₹ 1000</strong>
+                  <strong>₹ {product.discountedPrice}</strong>
                 </p>
               </div>
 
               <p>
                 <strong>Colour</strong>
               </p>
+
               <Radio.Group buttonStyle="ouline">
-                <Radio.Button
-                  style={{
-                    backgroundColor: "#2E3559",
-                    marginRight: "5px",
-                    color: "black",
-                  }}
-                  value="red"
-                ></Radio.Button>
-                <Radio.Button
-                  style={{
-                    backgroundColor: "#d9a91a",
-                    marginRight: "5px",
-                    color: "black",
-                  }}
-                  value="blue"
-                ></Radio.Button>
-                <Radio.Button
-                  style={{
-                    backgroundColor: "#a69b8f",
-                    marginRight: "5px",
-                    color: "black",
-                  }}
-                  value="green"
-                ></Radio.Button>
-                <Radio.Button
-                  style={{
-                    backgroundColor: "#4287f5",
-                    marginRight: "5px",
-                    color: "white",
-                  }}
-                  value="black"
-                ></Radio.Button>
+                {product.colours !== undefined &&
+                  product.colours[0].split(",").map((colour, index) => {
+                    return (
+                      <Radio.Button
+                        key={index}
+                        style={{
+                          backgroundColor: colour,
+                          marginRight: "5px",
+                          color: colour,
+                        }}
+                        onChange={(val) => setColour(val.target.value)}
+                        value={colour}
+                      ></Radio.Button>
+                    );
+                  })}
               </Radio.Group>
 
               <p>
                 <strong>Quantity</strong>
               </p>
-              <Input type="number" value="1" label="Quantity" />
+              <Input
+                type="number"
+                value={quantity}
+                onChange={(val) => setQuantity(val)}
+                label="Quantity"
+              />
 
               <br />
               <br />
-              <Button>Add to Cart</Button>
+              <Button onClick={() => addToCart()}>Add to Cart</Button>
               <br />
               <br />
               <p>
                 <strong>About this product</strong>
               </p>
-              <p>
-                Contrary to popular belief, Lorem Ipsum is not simply random
-                text. It has roots in a piece of classical Latin literature from
-                45 BC, making it over 2000 years old. Richard McClintock, a
-                Latin professor at Hampden-Sydney College in Virginia, looked up
-                one of the more obscure Latin words, consectetur, from a Lorem
-                Ipsum passage, and going through the cites of the word in
-                classical literature, discovered the undoubtable source. Lorem
-                Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus
-                Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,
-                written in 45 BC. This book is a treatise on the theory of
-                ethics, very popular during the Renaissance. The first line of
-                Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line
-                in section 1.10.32. The standard chunk of Lorem Ipsum used since
-                the 1500s is reproduced below for those interested. Sections
-                1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by
-                Cicero are also reproduced in their exact original form,
-                accompanied by English versions from the 1914 translation by H.
-                Rackham.
-              </p>
+              <p>{product.description}</p>
             </S.Container>
           </Col>
         </Row>

@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { lazy, useState, useEffect } from "react";
 
 import IntroContent from "../../content/IntroContent.json";
 import MiddleBlockContent from "../../content/MiddleBlockContent.json";
@@ -6,6 +6,7 @@ import AboutContent from "../../content/AboutContent.json";
 import MissionContent from "../../content/MissionContent.json";
 import ProductContent from "../../content/ProductContent.json";
 import ContactContent from "../../content/ContactContent.json";
+import axios from "axios";
 
 const ContactFrom = lazy(() => import("../../components/ContactForm"));
 const ContentBlock = lazy(() => import("../../components/ContentBlock"));
@@ -14,6 +15,18 @@ const Container = lazy(() => import("../../common/Container"));
 const ScrollToTop = lazy(() => import("../../common/ScrollToTop"));
 
 const Home = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/categories")
+      .then((response) => {
+        console.log(response.data);
+        setCategories(response.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
     <Container>
       <ScrollToTop />
@@ -26,7 +39,7 @@ const Home = () => {
         icon="developer.svg"
         id="intro"
       />
-      <MiddleBlock title={MiddleBlockContent.title} />
+      <MiddleBlock title={MiddleBlockContent.title} data={categories} />
       <ContentBlock
         type="left"
         title={AboutContent.title}

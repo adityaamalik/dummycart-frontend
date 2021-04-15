@@ -1,6 +1,29 @@
 import MiddleBlock from "../../components/MiddleBlock";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-const Category = () => {
+const Category = (props) => {
+  const { id } = props.location.state;
+
+  const [category, setCategory] = useState({});
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/categories/${id}`)
+      .then((response) => {
+        setCategory(response.data);
+      })
+      .catch((error) => console.log(error));
+
+    axios
+      .get(`http://localhost:3000/products?category=${id}`)
+      .then((response) => {
+        console.log(response.data);
+        setProducts(response.data);
+      })
+      .catch((error) => console.log(error));
+  }, [id]);
   return (
     <>
       <h1
@@ -9,7 +32,7 @@ const Category = () => {
           marginTop: "40px",
         }}
       >
-        Category Name
+        {category.name}
       </h1>
       <p
         style={{
@@ -19,7 +42,7 @@ const Category = () => {
       >
         We provide variety
       </p>
-      <MiddleBlock />
+      <MiddleBlock data={products} />
     </>
   );
 };

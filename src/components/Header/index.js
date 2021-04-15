@@ -1,6 +1,7 @@
-import { useState, Fragment, lazy } from "react";
+import { useState, Fragment, lazy, useEffect } from "react";
 import { Row, Col, Drawer, Card, Space } from "antd";
 import Button from "../../common/Button";
+import { DeleteOutlined } from "@ant-design/icons";
 
 import * as S from "./styles";
 
@@ -63,51 +64,64 @@ const Header = () => {
   };
 
   const CartItems = () => {
+    const [cartProducts, setCartProducts] = useState([]);
+
+    useEffect(() => {
+      setCartProducts(JSON.parse(localStorage.getItem("products")));
+    }, []);
+
     return (
       <>
         <Space direction="vertical">
-          <Card
-            bordered={false}
-            hoverable
-            cover={
-              <img
-                alt="example"
-                src="http://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8cHJvZHVjdHx8MHx8fHwxNjE3NjU4NTM2&ixlib=rb-1.2.1&q=80&w=1080"
-              />
-            }
-          >
-            <strong>Product Name</strong>
-            <br />
-            <span>Price | Quantity</span>
-          </Card>
-          <Card
-            bordered={false}
-            hoverable
-            cover={
-              <img
-                alt="example"
-                src="http://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8cHJvZHVjdHx8MHx8fHwxNjE3NjU4NTM2&ixlib=rb-1.2.1&q=80&w=1080"
-              />
-            }
-          >
-            <strong>Product Name</strong>
-            <br />
-            <span>Price | Quantity</span>
-          </Card>
-          <Card
-            bordered={false}
-            hoverable
-            cover={
-              <img
-                alt="example"
-                src="http://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8cHJvZHVjdHx8MHx8fHwxNjE3NjU4NTM2&ixlib=rb-1.2.1&q=80&w=1080"
-              />
-            }
-          >
-            <strong>Product Name</strong>
-            <br />
-            <span>Price | Quantity</span>
-          </Card>
+          {cartProducts !== null && cartProducts.length !== 0 ? (
+            cartProducts.map((product, index) => {
+              return (
+                <Card
+                  key={index}
+                  cover={
+                    <img
+                      alt={product.name}
+                      src={`data:image/${
+                        product.image.contentType
+                      };base64,${new Buffer.from(product.image.data).toString(
+                        "base64"
+                      )}`}
+                    />
+                  }
+                >
+                  <strong>{product.name}</strong>
+                  <br />
+                  <span>
+                    Price : ₹{product.discountedPrice * product.quantity}
+                  </span>
+                  <br />
+                  <span>Quantity : {product.quantity}</span>
+                  <br />
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      const allItems = JSON.parse(
+                        localStorage.getItem("products")
+                      );
+                      const filteredItems = allItems.filter(
+                        (items) => items.id !== product.id
+                      );
+                      localStorage.setItem(
+                        "products",
+                        JSON.stringify(filteredItems)
+                      );
+                      setCartProducts(filteredItems);
+                    }}
+                  >
+                    Remove
+                    <DeleteOutlined />
+                  </span>
+                </Card>
+              );
+            })
+          ) : (
+            <span style={{ fontSize: "18px" }}>No Items in the cart</span>
+          )}
         </Space>
       </>
     );

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ContactContainer = styled.div`
   padding: 5rem 0;
@@ -16,7 +16,7 @@ export const IconContainer = styled.div`
   }
 `;
 
-export const FormGroup = styled.form`
+export const FormGroup = styled.div`
   width: 100%;
   max-width: 520px;
   @media only screen and (max-width: 1045px) {
@@ -27,7 +27,7 @@ export const FormGroup = styled.form`
 
 export const Span = styled.span`
   display: block;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: "Ubuntu", sans-serif;
   font-weight: 600;
   color: rgb(255, 130, 92);
   height: 0.775rem;

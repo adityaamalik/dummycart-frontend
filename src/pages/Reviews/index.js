@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import { Avatar, Row, Col, Space, Upload, Image } from "antd";
+import { Avatar, Row, Col, Space, Upload, Image, message } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import StarRatings from "react-star-ratings";
 
@@ -8,13 +8,59 @@ import * as S from "./styles";
 import TextArea from "../../common/TextArea";
 import Input from "../../common/Input";
 import Button from "../../common/Button";
+import axios from "axios";
 
 const Reviews = () => {
+  const [reviews, setReviews] = useState([]);
+
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [showName, setShowName] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [reviewImage, setReviewImage] = useState({});
+  const [userImage, setUserImage] = useState({});
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/reviews")
+      .then((response) => {
+        console.log(response.data);
+        setReviews(response.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+  const submitReview = () => {
+    const fmData = new FormData();
+
+    if (name === "") {
+      message.error("Please fill the name");
+    } else if (comment === "") {
+      message.error("Please fill the comment");
+    } else if (rating === 0) {
+      message.error("Please fill the rating");
+    } else {
+      fmData.append("name", name);
+      fmData.append("comment", comment);
+      fmData.append("rating", rating);
+      fmData.append("email", email);
+      fmData.append("userimage", userImage);
+      fmData.append("commentimages", reviewImage);
+
+      axios
+        .post("http://localhost:3000/reviews", fmData)
+        .then((response) => {
+          console.log(response.data);
+          setReviews([response.data, ...reviews]);
+          message.success("Review posted successfully !");
+        })
+        .catch((error) => {
+          message.error("Some error occured !");
+          console.log(error);
+        });
+    }
+  };
 
   return (
     <>
@@ -37,7 +83,11 @@ const Reviews = () => {
 
       <S.Container>
         <p>
-          <span>10</span> Comments
+          {!!reviews && (
+            <>
+              <span>{reviews.length}</span> Comments
+            </>
+          )}
         </p>
       </S.Container>
       <S.Container>
@@ -45,7 +95,15 @@ const Reviews = () => {
           <Row>
             <Space>
               <Col>
-                <Avatar size="large" icon={<UserOutlined />} />
+                <Upload
+                  accept="image/png, image/jpeg"
+                  beforeUpload={(file) => {
+                    setUserImage(file);
+                    return false;
+                  }}
+                >
+                  <Avatar size="large" icon={<UserOutlined />} />
+                </Upload>
               </Col>
               <Col>
                 <TextArea
@@ -62,7 +120,13 @@ const Reviews = () => {
                 />
               </Col>
               <Col>
-                <Upload accept="image/png, image/jpeg">
+                <Upload
+                  beforeUpload={(file) => {
+                    setReviewImage(file);
+                    return false;
+                  }}
+                  accept="image/png, image/jpeg"
+                >
                   <S.CameraIcon />
                 </Upload>
               </Col>
@@ -105,7 +169,9 @@ const Reviews = () => {
               </Col>
               <Col lg={1}></Col>
               <Col lg={7}>
-                <Button height="50px">Submit</Button>
+                <Button height="50px" onClick={() => submitReview()}>
+                  Submit
+                </Button>
               </Col>
             </Row>
           ) : (
@@ -121,63 +187,84 @@ const Reviews = () => {
       {/* List of all reviews   */}
       <S.Container>
         <Space direction="vertical">
-          <Row>
-            <Space>
-              <Col>
-                <Avatar size="large" icon={<UserOutlined />} />
-              </Col>
-              <Col>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum.
-                </p>
-                <StarRatings
-                  rating={rating}
-                  starHoverColor="black"
-                  starRatedColor="#d9a91a"
-                  numberOfStars={5}
-                  starDimension="20px"
-                />
-              </Col>
-            </Space>
-          </Row>
-          <Row>
-            <Col style={{ marginRight: "48px" }}></Col>
-            <Col>
-              <Image
-                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                style={{
-                  objectFit: "contain",
-                  maxWidth: "500px",
-                  maxHeight: "300px",
-                }}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col style={{ marginRight: "48px" }}></Col>
-            <Col>
-              <Row>
-                <Space>
-                  <Col>
-                    <p>Name of the person</p>
-                  </Col>
-                  <Col></Col>
-                  <Col>
-                    <p>( Email of the person )</p>
-                  </Col>
-                </Space>
-              </Row>
-            </Col>
-          </Row>
+          {!!reviews &&
+            reviews.map((review, index) => {
+              return (
+                <div
+                  style={{ marginTop: index === 0 ? "0px" : "30px" }}
+                  key={index}
+                >
+                  <Row align="top">
+                    <Col>
+                      {!!review.userimage ? (
+                        <Avatar
+                          size="large"
+                          icon={
+                            <Image
+                              src={`data:image/${
+                                review.userimage.contentType
+                              };base64,${new Buffer.from(
+                                review.userimage.data
+                              ).toString("base64")}`}
+                            />
+                          }
+                        />
+                      ) : (
+                        <Avatar size="large" icon={<UserOutlined />} />
+                      )}
+                    </Col>
+                    <Col style={{ marginLeft: "5px" }}>
+                      <p>{review.comment}</p>
+                      <StarRatings
+                        rating={review.rating}
+                        starRatedColor="#d9a91a"
+                        numberOfStars={5}
+                        starDimension="20px"
+                      />
+                    </Col>
+                  </Row>
+
+                  {!!review.commentimages && (
+                    <Row justify="start">
+                      <Col style={{ marginRight: "48px" }}></Col>
+                      <Col>
+                        <Image
+                          src={`data:image/${
+                            review.commentimages.contentType
+                          };base64,${new Buffer.from(
+                            review.commentimages.data
+                          ).toString("base64")}`}
+                          style={{
+                            objectFit: "cover",
+                            maxWidth: "500px",
+                            maxHeight: "300px",
+                          }}
+                        />
+                      </Col>
+                    </Row>
+                  )}
+
+                  <Row>
+                    <Col style={{ marginRight: "48px" }}></Col>
+                    <Col>
+                      <Row>
+                        <Space>
+                          <Col>
+                            <strong>{review.name}</strong>
+                          </Col>
+                          <Col></Col>
+                          {review.email !== "" && (
+                            <Col>
+                              <strong>( {review.email} )</strong>
+                            </Col>
+                          )}
+                        </Space>
+                      </Row>
+                    </Col>
+                  </Row>
+                </div>
+              );
+            })}
         </Space>
       </S.Container>
     </>

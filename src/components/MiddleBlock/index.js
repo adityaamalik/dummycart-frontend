@@ -2,6 +2,7 @@ import { Row, Col, Card } from "antd";
 import { withTranslation } from "react-i18next";
 import Fade from "react-reveal/Fade";
 import { Link } from "react-router-dom";
+import { LoadingOutlined } from "@ant-design/icons";
 
 import * as S from "./styles";
 
@@ -62,7 +63,7 @@ const MiddleBlock = ({ title, t, data }) => {
                 })
               ) : (
                 <Col>
-                  <h5>No items to display here</h5>
+                  <LoadingOutlined style={{ fontSize: "30px" }} />
                 </Col>
               )}
             </Row>

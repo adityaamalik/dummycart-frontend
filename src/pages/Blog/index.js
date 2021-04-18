@@ -10,7 +10,7 @@ const Blog = (props) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/blogs/${id}`)
+      .get(`https://myindianthings-backend.herokuapp.com/blogs/${id}`)
       .then((response) => {
         console.log(response.data);
         setBlog(response.data);

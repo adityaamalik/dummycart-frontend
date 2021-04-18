@@ -14,7 +14,7 @@ const Product = (props) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/products/${id}`)
+      .get(`https://myindianthings-backend.herokuapp.com/products/${id}`)
       .then((response) => {
         setProduct(response.data);
       })
@@ -128,7 +128,7 @@ const Product = (props) => {
                     <Radio.Group buttonStyle="ouline">
                       {product.colours !== undefined &&
                         product.colours[0].split(",").map((colour, index) => {
-                          if (colour !== "")
+                          if (colour !== "") {
                             return (
                               <Radio.Button
                                 key={index}
@@ -141,6 +141,9 @@ const Product = (props) => {
                                 value={colour}
                               ></Radio.Button>
                             );
+                          } else {
+                            return <></>;
+                          }
                         })}
                     </Radio.Group>
                   </>

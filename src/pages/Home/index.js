@@ -19,7 +19,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/categories")
+      .get("https://myindianthings-backend.herokuapp.com/categories")
       .then((response) => {
         console.log(response.data);
         setCategories(response.data);

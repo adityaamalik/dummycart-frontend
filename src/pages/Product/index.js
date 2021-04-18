@@ -72,29 +72,12 @@ const Product = (props) => {
               <Carousel autoplay dotPosition="left">
                 <div>
                   {!!product.image && (
-                    <Image
-                      src={`data:image/${
-                        product.image.contentType
-                      };base64,${new Buffer.from(product.image.data).toString(
-                        "base64"
-                      )}`}
-                      alt={product.name}
-                    />
+                    <Image src={product.image} alt={product.name} />
                   )}
                 </div>
                 {product.images &&
                   product.images.map((image) => (
-                    <div key={image}>
-                      {!!image && (
-                        <Image
-                          src={`data:image/${
-                            image.contentType
-                          };base64,${new Buffer.from(image.data).toString(
-                            "base64"
-                          )}`}
-                        />
-                      )}
-                    </div>
+                    <div key={image}>{!!image && <Image src={image} />}</div>
                   ))}
               </Carousel>
             </div>

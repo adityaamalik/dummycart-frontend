@@ -46,7 +46,11 @@ const MiddleBlock = ({ title, t, data }) => {
                               <img
                                 height="100%"
                                 alt={val.name}
-                                src={val.image}
+                                src={`data:image/${
+                                  val.image.contentType
+                                };base64,${new Buffer.from(
+                                  val.image.data
+                                ).toString("base64")}`}
                               />
                             }
                           >

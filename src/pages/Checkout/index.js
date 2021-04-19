@@ -258,7 +258,14 @@ const Checkout = () => {
                   <S.ProductContainer align="middle" key={index}>
                     <Col span={4}>
                       {!!product.image && (
-                        <Image src={product.image} alt={product.name} />
+                        <Image
+                          src={`data:image/${
+                            product.image.contentType
+                          };base64,${new Buffer.from(
+                            product.image.data
+                          ).toString("base64")}`}
+                          alt={product.name}
+                        />
                       )}
                     </Col>
                     <Col span={2}></Col>

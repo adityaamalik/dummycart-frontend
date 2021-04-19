@@ -203,7 +203,15 @@ const Reviews = () => {
                       {!!review.userimage ? (
                         <Avatar
                           size="large"
-                          icon={<Image src={review.userimage} />}
+                          icon={
+                            <Image
+                              src={`data:image/${
+                                review.userimage.contentType
+                              };base64,${new Buffer.from(
+                                review.userimage.data
+                              ).toString("base64")}`}
+                            />
+                          }
                         />
                       ) : (
                         <Avatar size="large" icon={<UserOutlined />} />
@@ -225,7 +233,11 @@ const Reviews = () => {
                       <Col style={{ marginRight: "48px" }}></Col>
                       <Col>
                         <Image
-                          src={review.commentimages}
+                          src={`data:image/${
+                            review.commentimages.contentType
+                          };base64,${new Buffer.from(
+                            review.commentimages.data
+                          ).toString("base64")}`}
                           style={{
                             objectFit: "cover",
                             maxWidth: "500px",

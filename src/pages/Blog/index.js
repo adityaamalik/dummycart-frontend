@@ -33,7 +33,11 @@ const Blog = (props) => {
           <Col lg={12} md={24} sm={24} xs={24}>
             {!!blog.image && (
               <Image
-                src={blog.image}
+                src={`data:image/${
+                  blog.image.contentType
+                };base64,${new Buffer.from(blog.image.data).toString(
+                  "base64"
+                )}`}
                 style={{
                   objectFit: "scale-down",
                   width: "100%",

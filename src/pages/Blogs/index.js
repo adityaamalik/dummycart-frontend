@@ -52,7 +52,11 @@ const Blogs = () => {
                             maxHeight: "150px",
                           }}
                           alt={blog.title}
-                          src={blog.image}
+                          src={`data:image/${
+                            blog.image.contentType
+                          };base64,${new Buffer.from(blog.image.data).toString(
+                            "base64"
+                          )}`}
                         />
                       )}
                     </Col>

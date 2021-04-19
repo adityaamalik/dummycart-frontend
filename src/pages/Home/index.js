@@ -3,7 +3,6 @@ import { lazy, useState, useEffect } from "react";
 import IntroContent from "../../content/IntroContent.json";
 import MiddleBlockContent from "../../content/MiddleBlockContent.json";
 import AboutContent from "../../content/AboutContent.json";
-import MissionContent from "../../content/MissionContent.json";
 import ProductContent from "../../content/ProductContent.json";
 import ContactContent from "../../content/ContactContent.json";
 import axios from "axios";
@@ -15,6 +14,7 @@ const Container = lazy(() => import("../../common/Container"));
 const ScrollToTop = lazy(() => import("../../common/ScrollToTop"));
 
 const Home = () => {
+  const [newArrivals, setNewArrivals] = useState([]);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -25,6 +25,14 @@ const Home = () => {
         setCategories(response.data);
       })
       .catch((error) => console.log(error));
+
+    axios
+      .get(`https://myindianthings-backend.herokuapp.com/products/newArrivals`)
+      .then((response) => {
+        console.log(response.data);
+        setNewArrivals(response.data);
+      })
+      .catch((error) => console.log(error.response));
   }, []);
 
   return (
@@ -48,13 +56,8 @@ const Home = () => {
         icon="graphs.svg"
         id="about"
       />
-      <ContentBlock
-        type="right"
-        title={MissionContent.title}
-        content={MissionContent.text}
-        icon="product-launch.svg"
-        id="mission"
-      />
+
+      <MiddleBlock title="New Arrivals" data={newArrivals} />
 
       <ContentBlock
         type="left"

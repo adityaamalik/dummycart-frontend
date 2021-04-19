@@ -79,34 +79,6 @@ const Product = (props) => {
         <Row>
           <Col lg={12} md={24} sm={24} xs={24}>
             <div style={{ position: "sticky", top: "20px" }}>
-              {/* <Carousel autoplay dotPosition="left">
-                <div>
-                  {!!product.image && (
-                    <Image
-                      src={`data:image/${
-                        product.image.contentType
-                      };base64,${new Buffer.from(product.image.data).toString(
-                        "base64"
-                      )}`}
-                      alt={product.name}
-                    />
-                  )}
-                </div>
-                {product.images &&
-                  product.images.map((image) => (
-                    <div key={image}>
-                      {!!image && (
-                        <Image
-                          src={`data:image/${
-                            image.contentType
-                          };base64,${new Buffer.from(image.data).toString(
-                            "base64"
-                          )}`}
-                        />
-                      )}
-                    </div>
-                  ))}
-              </Carousel> */}
               <CarouselProvider
                 naturalSlideWidth={100}
                 naturalSlideHeight={125}

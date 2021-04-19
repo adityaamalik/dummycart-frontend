@@ -1,9 +1,19 @@
-import { Row, Col, Carousel, Image, Radio, message } from "antd";
+import { Row, Col, Radio, message } from "antd";
 import Button from "../../common/Button";
 import Input from "../../common/Input";
 import * as S from "./styles";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import {
+  CarouselProvider,
+  Slider,
+  Slide,
+  Image,
+  ButtonBack,
+  ButtonNext,
+} from "pure-react-carousel";
+import "pure-react-carousel/dist/react-carousel.es.css";
+import { RightOutlined, LeftOutlined } from "@ant-design/icons";
 
 const Product = (props) => {
   const { id } = props.location.state;
@@ -69,7 +79,7 @@ const Product = (props) => {
         <Row>
           <Col lg={12} md={24} sm={24} xs={24}>
             <div style={{ position: "sticky", top: "20px" }}>
-              <Carousel autoplay dotPosition="left">
+              {/* <Carousel autoplay dotPosition="left">
                 <div>
                   {!!product.image && (
                     <Image
@@ -96,7 +106,73 @@ const Product = (props) => {
                       )}
                     </div>
                   ))}
-              </Carousel>
+              </Carousel> */}
+              <CarouselProvider
+                naturalSlideWidth={100}
+                naturalSlideHeight={125}
+                totalSlides={!!product.images && product.images.length + 1}
+                isPlaying={true}
+                infinite={true}
+                isIntrinsicHeight={true}
+                hasMasterSpinner={true}
+              >
+                <Slider>
+                  <Slide index={0}>
+                    <div>
+                      {!!product.image && (
+                        <Image
+                          hasMasterSpinner={true}
+                          src={`data:image/${
+                            product.image.contentType
+                          };base64,${new Buffer.from(
+                            product.image.data
+                          ).toString("base64")}`}
+                          alt={product.name}
+                        />
+                      )}
+                    </div>
+                  </Slide>
+                  {product.images &&
+                    product.images.map((image, index) => (
+                      <Slide index={index + 1} key={index}>
+                        <div key={image}>
+                          {!!image && (
+                            <Image
+                              hasMasterSpinner={true}
+                              src={`data:image/${
+                                image.contentType
+                              };base64,${new Buffer.from(image.data).toString(
+                                "base64"
+                              )}`}
+                            />
+                          )}
+                        </div>
+                      </Slide>
+                    ))}
+                </Slider>
+                <S.SlideButtons>
+                  <ButtonBack
+                    style={{
+                      borderRadius: "50%",
+                      backgroundColor: "white",
+                      border: "1px solid black",
+                      marginRight: "5px",
+                    }}
+                  >
+                    <LeftOutlined />
+                  </ButtonBack>
+                  <ButtonNext
+                    style={{
+                      borderRadius: "50%",
+                      backgroundColor: "white",
+                      border: "1px solid black",
+                      marginRight: "5px",
+                    }}
+                  >
+                    <RightOutlined />
+                  </ButtonNext>
+                </S.SlideButtons>
+              </CarouselProvider>
             </div>
           </Col>
 

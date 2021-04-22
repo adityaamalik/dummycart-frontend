@@ -21,7 +21,6 @@ const Header = () => {
   };
 
   const showChildrenDrawer = () => {
-    setVisibility(true);
     setChildrenDrawer(true);
   };
 
@@ -158,23 +157,22 @@ const Header = () => {
           </Col>
           <MenuItem />
           <MenuItemRight />
-
-          <Drawer
-            closable={false}
-            onClose={onChildrenDrawerClose}
-            visible={childrenDrawer}
-          >
-            <Space direction="vertical" style={{ textAlign: "center" }}>
-              <Button
-                onClick={() => {
-                  window.location.pathname = "/checkout";
-                }}
-              >
-                Checkout
-              </Button>
-              <CartItems />
-            </Space>
-          </Drawer>
+        </Drawer>
+        <Drawer
+          closable={false}
+          onClose={onChildrenDrawerClose}
+          visible={childrenDrawer}
+        >
+          <Space direction="vertical" style={{ textAlign: "center" }}>
+            <Button
+              onClick={() => {
+                window.location.pathname = "/checkout";
+              }}
+            >
+              Checkout
+            </Button>
+            <CartItems />
+          </Space>
         </Drawer>
       </S.Container>
     </S.Header>

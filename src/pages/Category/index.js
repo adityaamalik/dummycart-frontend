@@ -44,7 +44,7 @@ const Category = (props) => {
       >
         We provide variety
       </p>
-      <MiddleBlock data={products} />
+      <MiddleBlock data={products} url="/product" />
     </>
   );
 };

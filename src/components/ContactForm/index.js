@@ -30,7 +30,7 @@ const Contact = ({ title, content, id }) => {
       };
 
       axios
-        .post("http://localhost:3000/contacts", data)
+        .post("https://myindianthings-backend.herokuapp.com/contacts", data)
         .then((response) => {
           console.log(response.data);
           message

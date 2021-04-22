@@ -8,13 +8,13 @@ import * as S from "./styles";
 
 const { Meta } = Card;
 
-const MiddleBlock = ({ title, t, data }) => {
+const MiddleBlock = ({ title, data, url }) => {
   return (
     <S.MiddleBlock>
       <Row type="flex" justify="center" align="middle">
         <Fade bottom>
           <Col>
-            {title && <h6>{t(title)}</h6>}
+            {title && <h6>{title}</h6>}
             <Row type="flex" justify="center">
               {data.length !== 0 ? (
                 data.map((val) => {
@@ -29,10 +29,7 @@ const MiddleBlock = ({ title, t, data }) => {
                     >
                       <Link
                         to={{
-                          pathname:
-                            window.location.href.indexOf("/category") !== -1
-                              ? "/product"
-                              : "category",
+                          pathname: url,
                           state: {
                             id: val._id,
                           },

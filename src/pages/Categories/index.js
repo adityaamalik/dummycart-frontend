@@ -33,7 +33,7 @@ const Categories = () => {
       >
         We provide variety
       </p>
-      <MiddleBlock data={categories} />
+      <MiddleBlock data={categories} url="/category" />
     </>
   );
 };

@@ -47,7 +47,11 @@ const Home = () => {
         icon="developer.svg"
         id="intro"
       />
-      <MiddleBlock title={MiddleBlockContent.title} data={categories} />
+      <MiddleBlock
+        title={MiddleBlockContent.title}
+        data={categories}
+        url="/category"
+      />
       <ContentBlock
         type="left"
         title={AboutContent.title}
@@ -57,7 +61,7 @@ const Home = () => {
         id="about"
       />
 
-      <MiddleBlock title="New Arrivals" data={newArrivals} />
+      <MiddleBlock title="New Arrivals" data={newArrivals} url="/product" />
 
       <ContentBlock
         type="left"

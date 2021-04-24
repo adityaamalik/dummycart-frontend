@@ -14,7 +14,7 @@ const Footer = () => {
   const [email, setEmail] = useState("");
   useEffect(() => {
     axios
-      .get("http://localhost:3000/categories")
+      .get("https://myindianthings-backend.herokuapp.com/categories")
       .then((response) => {
         console.log(response.data);
         setCategories(response.data);
@@ -40,7 +40,9 @@ const Footer = () => {
   const submitEmail = () => {
     console.log(email);
     axios
-      .post("http://localhost:3000/mail", { email: email })
+      .post("https://myindianthings-backend.herokuapp.com/mail", {
+        email: email,
+      })
       .then((response) => {
         console.log(response.data);
         setEmail("");

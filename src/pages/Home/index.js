@@ -24,7 +24,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/categories")
+      .get("https://myindianthings-backend.herokuapp.com/categories")
       .then((response) => {
         console.log(response.data);
         setCategories(response.data);
@@ -32,7 +32,7 @@ const Home = () => {
       .catch((error) => console.log(error));
 
     axios
-      .get(`http://localhost:3000/products/newArrivals`)
+      .get(`https://myindianthings-backend.herokuapp.com/products/newArrivals`)
       .then((response) => {
         console.log(response.data);
         setNewArrivals(response.data);
@@ -49,7 +49,9 @@ const Home = () => {
   const submitEmail = () => {
     console.log(email);
     axios
-      .post("http://localhost:3000/mail", { email: email })
+      .post("https://myindianthings-backend.herokuapp.com/mail", {
+        email: email,
+      })
       .then((response) => {
         console.log(response.data);
         toggleShowBanner(false);

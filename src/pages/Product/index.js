@@ -24,7 +24,7 @@ const Product = (props) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/products/${id}`)
+      .get(`https://myindianthings-backend.herokuapp.com/products/${id}`)
       .then((response) => {
         setProduct(response.data);
       })

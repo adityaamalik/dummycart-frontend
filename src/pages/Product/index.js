@@ -104,6 +104,8 @@ const Product = (props) => {
                                   };base64,${image.data.toString("base64")}`}
                                 />
                               );
+                            } else {
+                              return <></>;
                             }
                           })}
                       </div>

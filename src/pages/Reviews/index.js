@@ -23,7 +23,7 @@ const Reviews = () => {
 
   useEffect(() => {
     axios
-      .get("https://myindianthings-backend.herokuapp.com/reviews")
+      .get("http://localhost:3000/reviews")
       .then((response) => {
         console.log(response.data);
         setReviews(response.data);
@@ -49,7 +49,7 @@ const Reviews = () => {
       fmData.append("commentimages", reviewImage);
 
       axios
-        .post("https://myindianthings-backend.herokuapp.com/reviews", fmData)
+        .post("http://localhost:3000/reviews", fmData)
         .then((response) => {
           console.log(response.data);
           setReviews([response.data, ...reviews]);

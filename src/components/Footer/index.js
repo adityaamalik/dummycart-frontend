@@ -1,5 +1,5 @@
 import { lazy, Fragment, useEffect, useState } from "react";
-import { Row, Col } from "antd";
+import { Row, Col, message, Input, Button } from "antd";
 import Fade from "react-reveal/Fade";
 import axios from "axios";
 
@@ -11,9 +11,10 @@ const Container = lazy(() => import("../../common/Container"));
 const Footer = () => {
   const [categories, setCategories] = useState([]);
 
+  const [email, setEmail] = useState("");
   useEffect(() => {
     axios
-      .get("https://myindianthings-backend.herokuapp.com/categories")
+      .get("http://localhost:3000/categories")
       .then((response) => {
         console.log(response.data);
         setCategories(response.data);
@@ -36,9 +37,45 @@ const Footer = () => {
     );
   };
 
+  const submitEmail = () => {
+    console.log(email);
+    axios
+      .post("http://localhost:3000/mail", { email: email })
+      .then((response) => {
+        console.log(response.data);
+        setEmail("");
+        message.success("Thanks for subscribing to our mailing list !");
+      })
+      .catch((err) => {
+        console.log(err.response);
+        message.error("Please try again. Some error occured !");
+      });
+  };
+
   return (
     <Fragment>
       <Fade bottom>
+        <S.Extra>
+          <Container border="true">
+            <h1 style={{ textAlign: "center", paddingTop: "3rem" }}>
+              Subsribe to our mailing list
+            </h1>
+            <Row align="middle" justify="center" style={{ paddingTop: "1rem" }}>
+              <Col lg={19} md={15} sm={15} xs={15}>
+                <Input
+                  type="text"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Col>
+              <Col lg={1} md={1} sm={1} xs={1}></Col>
+              <Col lg={4} md={8} sm={8} xs={8}>
+                <Button onClick={() => submitEmail()}>SUBMIT</Button>
+              </Col>
+            </Row>
+          </Container>
+        </S.Extra>
         <S.Footer>
           <Container>
             <Row type="flex" justify="space-between">

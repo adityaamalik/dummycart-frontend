@@ -24,7 +24,7 @@ const Product = (props) => {
 
   useEffect(() => {
     axios
-      .get(`https://myindianthings-backend.herokuapp.com/products/${id}`)
+      .get(`http://localhost:3000/products/${id}`)
       .then((response) => {
         setProduct(response.data);
       })
@@ -37,8 +37,6 @@ const Product = (props) => {
       : "[]";
     const arrayproduct = JSON.parse(oldproduct);
 
-    console.log(arrayproduct);
-
     let flag = false;
     arrayproduct.forEach((element) => {
       if (element.id === product._id) {
@@ -49,18 +47,16 @@ const Product = (props) => {
       message.error("Product already exists in the cart");
     } else if (quantity === 0) {
       message.error("Please select quantity");
-    } else if (
-      product.colours.length !== 0 &&
-      product.colours[0] !== "" &&
-      colour === 0
-    ) {
+    } else if (!!product.totalColours && colour === "") {
       message.error("Please select colour");
     } else {
       const newProduct = {
         name: product.name,
         id: product._id,
         image: product.image,
-        discountedPrice: product.discountedPrice,
+        discountedPrice:
+          product.originalPrice -
+          (product.originalPrice * product.discountPercentage) / 100,
         originalPrice: product.originalPrice,
         quantity: quantity,
         colour: colour,
@@ -82,46 +78,74 @@ const Product = (props) => {
               <CarouselProvider
                 naturalSlideWidth={100}
                 naturalSlideHeight={125}
-                totalSlides={!!product.images && product.images.length + 1}
+                totalSlides={
+                  !!product.images && colour === ""
+                    ? product.images.length + 1
+                    : 1
+                }
                 isPlaying={true}
                 infinite={true}
                 isIntrinsicHeight={true}
                 hasMasterSpinner={true}
               >
-                <Slider>
-                  <Slide index={0}>
-                    <div>
-                      {!!product.image && (
-                        <Image
-                          hasMasterSpinner={true}
-                          src={`data:image/${
-                            product.image.contentType
-                          };base64,${new Buffer.from(
-                            product.image.data
-                          ).toString("base64")}`}
-                          alt={product.name}
-                        />
-                      )}
-                    </div>
-                  </Slide>
-                  {product.images &&
-                    product.images.map((image, index) => (
-                      <Slide index={index + 1} key={index}>
-                        <div key={image}>
-                          {!!image && (
+                {colour !== "" ? (
+                  <Slider>
+                    <Slide index={0}>
+                      <div>
+                        {product.images &&
+                          product.images.map((image, index) => {
+                            if (image.colour === colour) {
+                              return (
+                                <Image
+                                  key={index}
+                                  hasMasterSpinner={true}
+                                  src={`data:image/${
+                                    image.contentType
+                                  };base64,${image.data.toString("base64")}`}
+                                />
+                              );
+                            }
+                          })}
+                      </div>
+                    </Slide>
+                  </Slider>
+                ) : (
+                  <>
+                    <Slider>
+                      <Slide index={0}>
+                        <div>
+                          {!!product.image && (
                             <Image
                               hasMasterSpinner={true}
                               src={`data:image/${
-                                image.contentType
-                              };base64,${new Buffer.from(image.data).toString(
-                                "base64"
-                              )}`}
+                                product.image.contentType
+                              };base64,${new Buffer.from(
+                                product.image.data
+                              ).toString("base64")}`}
+                              alt={product.name}
                             />
                           )}
                         </div>
                       </Slide>
-                    ))}
-                </Slider>
+                      {product.images &&
+                        product.images.map((image, index) => (
+                          <Slide index={index + 1} key={index}>
+                            <div key={image}>
+                              {!!image && (
+                                <Image
+                                  hasMasterSpinner={true}
+                                  src={`data:image/${
+                                    image.contentType
+                                  };base64,${image.data.toString("base64")}`}
+                                />
+                              )}
+                            </div>
+                          </Slide>
+                        ))}
+                    </Slider>
+                  </>
+                )}
+
                 <S.SlideButtons>
                   <ButtonBack
                     style={{
@@ -152,41 +176,56 @@ const Product = (props) => {
             <S.Container>
               <h1>{product.name}</h1>
               <div style={{ display: "inline-flex" }}>
-                <p
-                  style={{
-                    marginRight: "10px",
-                    textDecoration: "line-through",
-                  }}
-                >
-                  <strong>₹ {product.originalPrice}</strong>
-                </p>
+                {!!product.discountPercentage &&
+                  product.discountPercentage !== 0 && (
+                    <p
+                      style={{
+                        marginRight: "10px",
+                        textDecoration: "line-through",
+                      }}
+                    >
+                      <strong>₹ {product.originalPrice}</strong>
+                    </p>
+                  )}
+
                 <p>
-                  <strong>₹ {product.discountedPrice}</strong>
+                  <strong>
+                    ₹{" "}
+                    {product.originalPrice -
+                      (product.originalPrice * product.discountPercentage) /
+                        100}
+                  </strong>
                 </p>
               </div>
 
-              {!!product.colours &&
-                product.colours.length !== 0 &&
-                product.colours[0] !== "" && (
+              <p>
+                {!!product.discountPercentage &&
+                  product.discountPercentage !== 0 &&
+                  product.discountPercentage + "% OFF"}
+              </p>
+
+              {!!product.images &&
+                product.images.length !== 0 &&
+                product.totalColours !== 0 && (
                   <>
                     <p>
                       <strong>Colour</strong>
                     </p>
 
-                    <Radio.Group buttonStyle="ouline">
-                      {product.colours !== undefined &&
-                        product.colours[0].split(",").map((colour, index) => {
-                          if (colour !== "") {
+                    <Radio.Group buttonStyle="outline">
+                      {product.images !== undefined &&
+                        product.images.map((img, index) => {
+                          if (!!img.colour) {
                             return (
                               <Radio.Button
                                 key={index}
                                 style={{
-                                  backgroundColor: colour,
+                                  backgroundColor: img.colour,
                                   marginRight: "5px",
-                                  color: colour,
+                                  color: img.colour,
                                 }}
                                 onChange={(val) => setColour(val.target.value)}
-                                value={colour}
+                                value={img.colour}
                               ></Radio.Button>
                             );
                           } else {

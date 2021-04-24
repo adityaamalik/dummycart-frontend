@@ -54,12 +54,9 @@ const Checkout = () => {
     }
 
     // creating a new order
-    const result = await axios.post(
-      "https://myindianthings-backend.herokuapp.com/payment/orders",
-      {
-        amount: price,
-      }
-    );
+    const result = await axios.post("http://localhost:3000/payment/orders", {
+      amount: price,
+    });
 
     if (!result) {
       alert("Server error. Are you online?");
@@ -86,7 +83,7 @@ const Checkout = () => {
         };
 
         const result = await axios.post(
-          "https://myindianthings-backend.herokuapp.com/payment/success",
+          "http://localhost:3000/payment/success",
           data
         );
 
@@ -157,7 +154,7 @@ const Checkout = () => {
       };
 
       axios
-        .post("https://myindianthings-backend.herokuapp.com/orders", data)
+        .post("http://localhost:3000/orders", data)
         .then((response) => {
           console.log(response.data);
           localStorage.removeItem("products");
@@ -274,18 +271,26 @@ const Checkout = () => {
                       <span>Quantity : {product.quantity}</span>
                       <br />
                       <span>
+                        {product.originalPrice !== product.discountedPrice && (
+                          <>
+                            <span
+                              style={{
+                                marginRight: "10px",
+                                textDecoration: "line-through",
+                              }}
+                            >
+                              ₹{product.originalPrice * product.quantity}
+                            </span>{" "}
+                            |{" "}
+                          </>
+                        )}
+
                         <span
                           style={{
-                            marginRight: "10px",
-                            textDecoration: "line-through",
-                          }}
-                        >
-                          ₹{product.originalPrice * product.quantity}
-                        </span>{" "}
-                        |{" "}
-                        <span
-                          style={{
-                            marginLeft: "10px",
+                            marginLeft:
+                              product.originalPrice !== product.discountedPrice
+                                ? "10px"
+                                : "0px",
                           }}
                         >
                           ₹{product.discountedPrice * product.quantity}

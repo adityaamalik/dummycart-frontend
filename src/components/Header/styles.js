@@ -92,6 +92,7 @@ export const Label = styled.span`
 export const Outline = styled(MenuOutlined)`
   font-size: 22px;
   padding-right: ${(props) => (props.padding ? "10px" : "")};
+  margin-left: 1.5rem;
 `;
 
 export const Span = styled.a`

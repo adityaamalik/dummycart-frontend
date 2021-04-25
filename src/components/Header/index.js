@@ -129,7 +129,7 @@ const Header = () => {
   return (
     <S.Header>
       <S.Container>
-        <Row type="flex" justify="space-between" gutter={20}>
+        <Row align="middle" type="flex" justify="space-between" gutter={20}>
           <S.LogoContainer to="/" aria-label="homepage">
             <SvgIcon src="logo.svg" width="100" height="50" />
           </S.LogoContainer>
@@ -139,8 +139,9 @@ const Header = () => {
           <S.NotHidden>
             <MenuItemRight />
           </S.NotHidden>
-          <S.Burger onClick={showDrawer}>
-            <S.Outline />
+          <S.Burger>
+            <S.CartIcon onClick={showChildrenDrawer} />
+            <S.Outline onClick={showDrawer} />
           </S.Burger>
         </Row>
 
@@ -156,7 +157,6 @@ const Header = () => {
             </S.Label>
           </Col>
           <MenuItem />
-          <MenuItemRight />
         </Drawer>
         <Drawer
           closable={false}

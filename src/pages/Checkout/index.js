@@ -5,6 +5,14 @@ import { Row, Col, Image, message } from "antd";
 import Button from "../../common/Button";
 import Input from "../../common/Input";
 import axios from "axios";
+import { Radio } from "antd";
+
+const options = [
+  { label: "Cash On Delivery", value: "COD" },
+  { label: "Card Payment", value: "Card" },
+  { label: "UPI", value: "UPI" },
+  { label: "Other", value: "Other" },
+];
 
 const Checkout = () => {
   const [name, setName] = React.useState("");
@@ -15,6 +23,7 @@ const Checkout = () => {
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [zip, setZip] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
 
   const [cartProducts, setCartProducts] = useState([]);
 
@@ -126,6 +135,8 @@ const Checkout = () => {
       message.error("Please fill the city");
     } else if (zip === "") {
       message.error("Please fill the zip code");
+    } else if (paymentMethod === "") {
+      message.error("Please enter the payment method");
     } else {
       // const fmData = new FormData();
 
@@ -154,6 +165,7 @@ const Checkout = () => {
         state: state,
         zip: zip,
         orderItems: orderItems,
+        paymentMethod: paymentMethod,
       };
 
       axios
@@ -161,14 +173,18 @@ const Checkout = () => {
         .then((response) => {
           console.log(response.data);
           localStorage.removeItem("products");
-          displayRazorpay(
-            name,
-            email,
-            phone,
-            address1,
-            totalPrice,
-            response.data._id
-          );
+          if (response.data.paymentMethod !== "COD") {
+            displayRazorpay(
+              name,
+              email,
+              phone,
+              address1,
+              totalPrice,
+              response.data._id
+            );
+          } else {
+            window.location.pathname = "/thankyou";
+          }
         })
         .catch((error) => {
           message.error("Some error occured !");
@@ -245,6 +261,17 @@ const Checkout = () => {
               value={zip}
               onChange={(val) => setZip(val)}
             />
+
+            <p>Choose Payment Method</p>
+            <Radio.Group
+              size="large"
+              options={options}
+              onChange={(e) => setPaymentMethod(e.target.value)}
+              value={paymentMethod}
+            />
+
+            <br />
+
             <Button width="30" onClick={() => submitOrder()}>
               Continue to payment
             </Button>

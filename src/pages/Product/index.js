@@ -256,7 +256,7 @@ const Product = (props) => {
               <p>
                 <strong>About this product</strong>
               </p>
-              <p>{product.description}</p>
+              <p style={{ whiteSpace: "pre-wrap" }}>{product.description}</p>
             </S.Container>
           </Col>
         </Row>

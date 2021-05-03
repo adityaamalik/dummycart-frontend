@@ -16,20 +16,24 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 import { RightOutlined, LeftOutlined } from "@ant-design/icons";
 
 const Product = (props) => {
-  const { id } = props.location.state;
+  const { id, d } = props.location.state;
   const [product, setProduct] = useState({});
 
   const [colour, setColour] = useState("");
   const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {
-    axios
-      .get(`https://myindianthings-backend.herokuapp.com/products/${id}`)
-      .then((response) => {
-        setProduct(response.data);
-      })
-      .catch((error) => console.log(error));
-  }, [id]);
+    if (!!d) {
+      setProduct(d);
+    } else {
+      axios
+        .get(`https://myindianthings-backend.herokuapp.com/products/${id}`)
+        .then((response) => {
+          setProduct(response.data);
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [id, d]);
 
   const addToCart = () => {
     const oldproduct = localStorage.getItem("products")

@@ -36,7 +36,7 @@ const Blogs = () => {
                 to={{
                   pathname: "/blog",
                   state: {
-                    id: blog._id,
+                    d: blog,
                   },
                 }}
               >

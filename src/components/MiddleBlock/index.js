@@ -31,7 +31,7 @@ const MiddleBlock = ({ title, data, url }) => {
                         to={{
                           pathname: url,
                           state: {
-                            id: val._id,
+                            d: val,
                           },
                         }}
                       >

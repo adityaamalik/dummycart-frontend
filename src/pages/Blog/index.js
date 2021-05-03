@@ -1,22 +1,15 @@
 import { Image, Row, Col } from "antd";
 import { useEffect, useState } from "react";
 import * as S from "./styles";
-import axios from "axios";
 
 const Blog = (props) => {
-  const { id } = props.location.state;
+  const { d } = props.location.state;
 
   const [blog, setBlog] = useState({});
 
   useEffect(() => {
-    axios
-      .get(`https://myindianthings-backend.herokuapp.com/blogs/${id}`)
-      .then((response) => {
-        console.log(response.data);
-        setBlog(response.data);
-      })
-      .catch((error) => console.log(error));
-  }, [id]);
+    setBlog(d);
+  }, [d]);
 
   return (
     <>

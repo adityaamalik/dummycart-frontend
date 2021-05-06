@@ -26,11 +26,7 @@ const Blog = (props) => {
           <Col lg={12} md={24} sm={24} xs={24}>
             {!!blog.image && (
               <Image
-                src={`data:image/${
-                  blog.image.contentType
-                };base64,${new Buffer.from(blog.image.data).toString(
-                  "base64"
-                )}`}
+                src={blog.image}
                 style={{
                   objectFit: "scale-down",
                   width: "100%",

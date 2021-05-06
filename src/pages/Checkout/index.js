@@ -63,12 +63,9 @@ const Checkout = () => {
     }
 
     // creating a new order
-    const result = await axios.post(
-      "https://myindianthings-backend.herokuapp.com/payment/orders",
-      {
-        amount: price,
-      }
-    );
+    const result = await axios.post("/payment/orders", {
+      amount: price,
+    });
 
     if (!result) {
       alert("Server error. Are you online?");
@@ -94,10 +91,7 @@ const Checkout = () => {
           razorpaySignature: response.razorpay_signature,
         };
 
-        const result = await axios.post(
-          "https://myindianthings-backend.herokuapp.com/payment/success",
-          data
-        );
+        const result = await axios.post("/payment/success", data);
 
         message
           .success(result.data.msg)
@@ -169,7 +163,7 @@ const Checkout = () => {
       };
 
       axios
-        .post("https://myindianthings-backend.herokuapp.com/orders", data)
+        .post("/orders", data)
         .then((response) => {
           console.log(response.data);
           localStorage.removeItem("products");
@@ -285,14 +279,7 @@ const Checkout = () => {
                   <S.ProductContainer align="middle" key={index}>
                     <Col span={4}>
                       {!!product.image && (
-                        <Image
-                          src={`data:image/${
-                            product.image.contentType
-                          };base64,${new Buffer.from(
-                            product.image.data
-                          ).toString("base64")}`}
-                          alt={product.name}
-                        />
+                        <Image src={product.image} alt={product.name} />
                       )}
                     </Col>
                     <Col span={2}></Col>

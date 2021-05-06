@@ -77,16 +77,7 @@ const Header = () => {
               return (
                 <Card
                   key={index}
-                  cover={
-                    <img
-                      alt={product.name}
-                      src={`data:image/${
-                        product.image.contentType
-                      };base64,${new Buffer.from(product.image.data).toString(
-                        "base64"
-                      )}`}
-                    />
-                  }
+                  cover={<img alt={product.name} src={product.image} />}
                 >
                   <strong>{product.name}</strong>
                   <br />

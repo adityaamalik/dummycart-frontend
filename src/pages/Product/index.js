@@ -22,18 +22,40 @@ const Product = (props) => {
   const [colour, setColour] = useState("");
   const [quantity, setQuantity] = useState(0);
 
+  const [totalColors, setTotalColors] = useState(0);
+  const [totalSlides, setTotalSlides] = useState(1);
+
   useEffect(() => {
     if (!!d) {
       setProduct(d);
+      let temp = 0;
+      let temp2 = 0;
+      for (let prop in product) {
+        if (prop.includes("color") && !!product[prop]) {
+          temp++;
+        }
+        if (prop.includes("galleryImage") && !!product[prop]) {
+          temp2++;
+        }
+      }
+      setTotalColors(temp);
+      setTotalSlides(temp2 + 1);
     } else {
       axios
-        .get(`https://myindianthings-backend.herokuapp.com/products/${id}`)
+        .get(`/products/${id}`)
         .then((response) => {
           setProduct(response.data);
+
+          for (let prop in product) {
+            console.log(prop);
+            if (prop.includes("color")) {
+              console.log(prop + " : " + product[prop]);
+            }
+          }
         })
         .catch((error) => console.log(error));
     }
-  }, [id, d]);
+  }, [id, d, product]);
 
   const addToCart = () => {
     const oldproduct = localStorage.getItem("products")
@@ -82,75 +104,102 @@ const Product = (props) => {
               <CarouselProvider
                 naturalSlideWidth={100}
                 naturalSlideHeight={125}
-                totalSlides={
-                  !!product.images && colour === ""
-                    ? product.images.length + 1
-                    : 1
-                }
+                totalSlides={totalSlides}
                 isPlaying={true}
                 infinite={true}
                 isIntrinsicHeight={true}
                 hasMasterSpinner={true}
               >
-                {colour !== "" ? (
-                  <Slider>
-                    <Slide index={0}>
+                <Slider>
+                  <Slide index={0}>
+                    <div>
+                      {!!product.image && (
+                        <Image
+                          hasMasterSpinner={true}
+                          src={product.image}
+                          alt={product.name}
+                        />
+                      )}
+                    </div>
+                  </Slide>
+                  {!!product.galleryImage1 && (
+                    <Slide index={1}>
                       <div>
-                        {product.images &&
-                          product.images.map((image, index) => {
-                            if (image.colour === colour) {
-                              return (
-                                <Image
-                                  key={index}
-                                  hasMasterSpinner={true}
-                                  src={`data:image/${
-                                    image.contentType
-                                  };base64,${image.data.toString("base64")}`}
-                                />
-                              );
-                            } else {
-                              return <></>;
-                            }
-                          })}
+                        <Image
+                          hasMasterSpinner={true}
+                          src={product.galleryImage1}
+                          alt="Gallery image 1"
+                        />
                       </div>
                     </Slide>
-                  </Slider>
-                ) : (
-                  <>
-                    <Slider>
-                      <Slide index={0}>
-                        <div>
-                          {!!product.image && (
-                            <Image
-                              hasMasterSpinner={true}
-                              src={`data:image/${
-                                product.image.contentType
-                              };base64,${new Buffer.from(
-                                product.image.data
-                              ).toString("base64")}`}
-                              alt={product.name}
-                            />
-                          )}
-                        </div>
-                      </Slide>
-                      {product.images &&
-                        product.images.map((image, index) => (
-                          <Slide index={index + 1} key={index}>
-                            <div key={image}>
-                              {!!image && (
-                                <Image
-                                  hasMasterSpinner={true}
-                                  src={`data:image/${
-                                    image.contentType
-                                  };base64,${image.data.toString("base64")}`}
-                                />
-                              )}
-                            </div>
-                          </Slide>
-                        ))}
-                    </Slider>
-                  </>
-                )}
+                  )}
+                  {!!product.galleryImage2 && (
+                    <Slide index={2}>
+                      <div>
+                        <Image
+                          hasMasterSpinner={true}
+                          src={product.galleryImage2}
+                          alt="Gallery image 2"
+                        />
+                      </div>
+                    </Slide>
+                  )}
+                  {!!product.galleryImage3 && (
+                    <Slide index={3}>
+                      <div>
+                        <Image
+                          hasMasterSpinner={true}
+                          src={product.galleryImage3}
+                          alt="Gallery image 3"
+                        />
+                      </div>
+                    </Slide>
+                  )}
+                  {!!product.galleryImage4 && (
+                    <Slide index={4}>
+                      <div>
+                        <Image
+                          hasMasterSpinner={true}
+                          src={product.galleryImage4}
+                          alt="Gallery image 4"
+                        />
+                      </div>
+                    </Slide>
+                  )}
+                  {!!product.galleryImage5 && (
+                    <Slide index={5}>
+                      <div>
+                        <Image
+                          hasMasterSpinner={true}
+                          src={product.galleryImage5}
+                          alt="Gallery image 5"
+                        />
+                      </div>
+                    </Slide>
+                  )}
+                  {!!product.galleryImage6 && (
+                    <Slide index={6}>
+                      <div>
+                        <Image
+                          hasMasterSpinner={true}
+                          src={product.galleryImage6}
+                          alt="Gallery image 6"
+                        />
+                      </div>
+                    </Slide>
+                  )}
+                  {!!product.galleryImage7 && (
+                    <Slide index={7}>
+                      <div>
+                        <Image
+                          hasMasterSpinner={true}
+                          src={product.galleryImage7}
+                          alt="Gallery image 7"
+                        />
+                      </div>
+                    </Slide>
+                  )}
+                </Slider>
 
                 <S.SlideButtons>
                   <ButtonBack
@@ -210,37 +259,99 @@ const Product = (props) => {
                   product.discountPercentage + "% OFF"}
               </p>
 
-              {!!product.images &&
-                product.images.length !== 0 &&
-                product.totalColours !== 0 && (
-                  <>
-                    <p>
-                      <strong>Colour</strong>
-                    </p>
+              {totalColors !== 0 && (
+                <>
+                  <p>
+                    <strong>Colour</strong>
+                  </p>
 
-                    <Radio.Group buttonStyle="outline">
-                      {product.images !== undefined &&
-                        product.images.map((img, index) => {
-                          if (!!img.colour) {
-                            return (
-                              <Radio.Button
-                                key={index}
-                                style={{
-                                  backgroundColor: img.colour,
-                                  marginRight: "5px",
-                                  color: img.colour,
-                                }}
-                                onChange={(val) => setColour(val.target.value)}
-                                value={img.colour}
-                              ></Radio.Button>
-                            );
-                          } else {
-                            return <></>;
-                          }
-                        })}
-                    </Radio.Group>
-                  </>
-                )}
+                  <Radio.Group buttonStyle="outline">
+                    {!!product.color2 && (
+                      <Radio.Button
+                        style={{
+                          backgroundColor: product.color1,
+                          marginRight: "5px",
+                          color: product.color1,
+                        }}
+                        onChange={(val) => setColour(val.target.value)}
+                        value={product.color1}
+                      ></Radio.Button>
+                    )}
+
+                    {!!product.color2 && (
+                      <Radio.Button
+                        style={{
+                          backgroundColor: product.color2,
+                          marginRight: "5px",
+                          color: product.color2,
+                        }}
+                        onChange={(val) => setColour(val.target.value)}
+                        value={product.color2}
+                      ></Radio.Button>
+                    )}
+
+                    {!!product.color3 && (
+                      <Radio.Button
+                        style={{
+                          backgroundColor: product.color3,
+                          marginRight: "5px",
+                          color: product.color3,
+                        }}
+                        onChange={(val) => setColour(val.target.value)}
+                        value={product.color3}
+                      ></Radio.Button>
+                    )}
+
+                    {!!product.color4 && (
+                      <Radio.Button
+                        style={{
+                          backgroundColor: product.color4,
+                          marginRight: "5px",
+                          color: product.color4,
+                        }}
+                        onChange={(val) => setColour(val.target.value)}
+                        value={product.color4}
+                      ></Radio.Button>
+                    )}
+
+                    {!!product.color5 && (
+                      <Radio.Button
+                        style={{
+                          backgroundColor: product.color5,
+                          marginRight: "5px",
+                          color: product.color5,
+                        }}
+                        onChange={(val) => setColour(val.target.value)}
+                        value={product.color5}
+                      ></Radio.Button>
+                    )}
+
+                    {!!product.color6 && (
+                      <Radio.Button
+                        style={{
+                          backgroundColor: product.color6,
+                          marginRight: "5px",
+                          color: product.color6,
+                        }}
+                        onChange={(val) => setColour(val.target.value)}
+                        value={product.color6}
+                      ></Radio.Button>
+                    )}
+
+                    {!!product.color7 && (
+                      <Radio.Button
+                        style={{
+                          backgroundColor: product.color7,
+                          marginRight: "5px",
+                          color: product.color7,
+                        }}
+                        onChange={(val) => setColour(val.target.value)}
+                        value={product.color7}
+                      ></Radio.Button>
+                    )}
+                  </Radio.Group>
+                </>
+              )}
 
               <p>
                 <strong>Quantity</strong>
@@ -254,7 +365,17 @@ const Product = (props) => {
 
               <br />
               <br />
-              <Button onClick={() => addToCart()}>Add to Cart</Button>
+              {!!product.inStock && product.inStock === "yes" ? (
+                <Button onClick={() => addToCart()}>Add to Cart</Button>
+              ) : (
+                <>
+                  <Button disabled>Out Of Stock</Button>
+                  <p style={{ fontSize: 15 }}>
+                    Subscribe to our mailing list to get notified!
+                  </p>
+                </>
+              )}
+
               <br />
               <br />
               <p>

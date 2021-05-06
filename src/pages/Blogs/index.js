@@ -9,7 +9,7 @@ const Blogs = () => {
 
   useEffect(() => {
     axios
-      .get("https://myindianthings-backend.herokuapp.com/blogs")
+      .get("/blogs")
       .then((response) => {
         console.log(response.data);
         setBlogs(response.data);
@@ -52,11 +52,7 @@ const Blogs = () => {
                             maxHeight: "150px",
                           }}
                           alt={blog.title}
-                          src={`data:image/${
-                            blog.image.contentType
-                          };base64,${new Buffer.from(blog.image.data).toString(
-                            "base64"
-                          )}`}
+                          src={blog.image}
                         />
                       )}
                     </Col>

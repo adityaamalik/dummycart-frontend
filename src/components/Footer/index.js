@@ -83,9 +83,9 @@ const Footer = () => {
             <Row type="flex" justify="space-between">
               <Col lg={10} md={10} sm={12} xs={24}>
                 <S.Language>Contact</S.Language>
-                <S.Large to="tel:9723708470">Call : 9723708470</S.Large>
+                <S.Large to="tel:9723708470">Call : 9999999999</S.Large>
                 <S.Large to="mailto:myindianthingss@gmail.com">
-                  Mail : myindianthingss@gmail.com
+                  Mail : dummystore@gmail.com
                 </S.Large>
                 <S.Para>
                   Having trouble in anything ? Feel free href reach out.
@@ -114,9 +114,9 @@ const Footer = () => {
               <Col lg={10} md={10} sm={12} xs={24}>
                 <S.Empty />
                 <S.Language>ADDRESS</S.Language>
-                <S.Para>No 64, Kanakapura road</S.Para>
-                <S.Para>Bangalore 560082</S.Para>
-                <S.Para>India</S.Para>
+                <S.Para>22 B, Baker Street</S.Para>
+                <S.Para>London, 560082</S.Para>
+                <S.Para>U.K</S.Para>
               </Col>
 
               <Col lg={6} md={6} sm={12} xs={24}>

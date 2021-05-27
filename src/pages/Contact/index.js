@@ -6,7 +6,7 @@ const ContactFrom = lazy(() => import("../../components/ContactForm"));
 
 const Contact = () => {
   const title = "We're happy to help";
-  const text = "Tel 9723708470 | Myindianthingss@gmail.com";
+  const text = "Tel 9999999999 | dummystore@gmail.com";
   return (
     <>
       <h1

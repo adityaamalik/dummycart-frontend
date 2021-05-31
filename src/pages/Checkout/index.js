@@ -79,8 +79,8 @@ const Checkout = () => {
       key: "rzp_test_wWXoxoQf1kjrSm", // Enter the Key ID generated from the Dashboard
       amount: amount * 100,
       currency: currency,
-      name: "MyIndianThings",
-      description: "Payment for your order at MyIndianThings",
+      name: "DUMMY STORE",
+      description: "Payment for your order at DUMMY STORE",
       order_id: order_id,
       handler: async function (response) {
         const data = {
